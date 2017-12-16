@@ -29,7 +29,6 @@ $(".loaded-images-holder").sortable({
 });
 
 function iconSpan(i, files, iconHolderWidth) {
-    alert(escape(files))
     return ('<span id=icon' + i + ' class="image-icon" style = "background-image:url(' + files.replace(/\\/g,"/") + '); background-size: contain; background-repeat: no-repeat; min-width:' + iconHolderWidth + 'px"><div class = "close" id =close' + i + '><i class="fa fa-close"></i></div></span>')
 };
 
@@ -201,7 +200,6 @@ settingsEl.ondrop = (e) => {
 
 function addDragImage(path) {
     var filesa = [path]
-    alert(filesa)
     var j = 0;
     var newimage = true;
     if (filesa !== undefined) {
