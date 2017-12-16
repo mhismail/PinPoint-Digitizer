@@ -85,6 +85,7 @@ function CanvasState(canvas, img) {
     this.calibrated = false;
     this.scaleValid = false;
     this.tableValid = true;
+    this.shifted=false;
 
     var table = $('#' + this.id).parent().parent().parent().find('.example');
 
@@ -338,6 +339,12 @@ function CanvasState(canvas, img) {
         }
 
     });
+    
+     $(document).on('keydown', function(e){     if(e.keyCode==16){
+                                                myState.shifted= !myState.shifted;
+                                                myState.valid = false;
+                                                myState.floatingCanvasValid = false;
+                                                myState.draw(img);}} );
 //    
 //    $("#"+this.id).parent().parent().parent().mouseenter(function(){
 //        console.log("boogity")
@@ -637,6 +644,7 @@ CanvasState.prototype.draw = function (img) {
         for (var i = 0; i < l; i++) {
             new Shape(Math.round(points[i][0] * this.width), Math.round((-1 * points[i][1] + 1) * this.height), 20, colors[colorsindices[i]]).draw(ctx);
         }
+        
 
         this.valid = true;
     }
@@ -766,9 +774,11 @@ CanvasState.prototype.draw = function (img) {
         miniCtx.clearRect(0, 0, 100, 100);
 
         miniCtx.drawImage(imageCanvas, 50 * 1 / scale - this.currentx, 50 * 1 / scale - this.currenty);
+        if(!this.shifted){
         miniCtx.drawImage(this.canvas, 50 * 1 / scale - this.currentx, 50 * 1 / scale - this.currenty);
-        miniCtx.drawImage(selectedCanvas, 50 * 1 / scale - this.currentx, 50 * 1 / scale - this.currenty);
         
+        miniCtx.drawImage(selectedCanvas, 50 * 1 / scale - this.currentx, 50 * 1 / scale - this.currenty);
+        }
         miniCtx.beginPath();
         miniCtx.strokeStyle = 'rgb(0, 0, 0)';
         miniCtx.lineWidth = 1 / scale;

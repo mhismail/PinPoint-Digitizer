@@ -209,6 +209,7 @@ i.fa.fa-minus:hover {
     position: relative;
     cursor: default;
     margin: auto;
+    border: 2px black solid;
 }
 
 .name-input {
