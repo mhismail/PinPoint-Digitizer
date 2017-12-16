@@ -31,10 +31,10 @@ Shape.prototype.draw = function (ctx) {
     ctx.strokeStyle = this.outline;
     ctx.beginPath();
     ctx.lineWidth = 3;
-    ctx.moveTo(x, y + length / 2 + 1 / 2);
-    ctx.lineTo(x, y - length / 2 - 1 / 2);
-    ctx.moveTo(x + length / 2 + 1 / 2, y);
-    ctx.lineTo(x - length / 2 - 1 / 2, y);
+    ctx.moveTo(x, y + length / 2 + 1 );
+    ctx.lineTo(x, y - length / 2 - 1 );
+    ctx.moveTo(x + length / 2 + 1 , y);
+    ctx.lineTo(x - length / 2 - 1 , y);
     ctx.stroke();
 
     ctx.strokeStyle = this.fill;
@@ -558,7 +558,7 @@ CanvasState.prototype.draw = function (img) {
         if (l >= 2) {
             console.log([this.coordinates[0][1],this.coordinates[1][1]])
             if (this.coordinates[0][1].toFixed(8)==this.coordinates[1][1].toFixed(8)){
-                var color = "green";
+                var color = "#1ffd1f";
             }else{ 
                 var color = "red";
             }
@@ -566,14 +566,14 @@ CanvasState.prototype.draw = function (img) {
             ctx.beginPath();
             ctx.moveTo(this.coordinates[0][0] * this.width, (-1 * this.coordinates[0][1] + 1) * this.height);
             ctx.lineTo(this.coordinates[1][0] * this.width, (-1 * this.coordinates[1][1] + 1) * this.height);
-            ctx.lineWidth = 1;
+            ctx.lineWidth = 2;
             ctx.strokeStyle = color;
             ctx.stroke();
         }
 
         if (l >= 4) {
             if (this.coordinates[2][0].toFixed(8)==this.coordinates[3][0].toFixed(8)){
-                var color = "green";
+                var color = "#1ffd1f";
             }else{ 
                 var color = "red";
             }
@@ -581,7 +581,7 @@ CanvasState.prototype.draw = function (img) {
             ctx.beginPath();
             ctx.moveTo(this.coordinates[2][0] * this.width, (-1 * this.coordinates[2][1] + 1) * this.height);
             ctx.lineTo(this.coordinates[3][0] * this.width, (-1 * this.coordinates[3][1] + 1) * this.height);
-            ctx.lineWidth = 1;
+            ctx.lineWidth = 2;
             ctx.strokeStyle = color;
             ctx.stroke();
         }
@@ -767,6 +767,8 @@ CanvasState.prototype.draw = function (img) {
 
         miniCtx.drawImage(imageCanvas, 50 * 1 / scale - this.currentx, 50 * 1 / scale - this.currenty);
         miniCtx.drawImage(this.canvas, 50 * 1 / scale - this.currentx, 50 * 1 / scale - this.currenty);
+        miniCtx.drawImage(selectedCanvas, 50 * 1 / scale - this.currentx, 50 * 1 / scale - this.currenty);
+        
         miniCtx.beginPath();
         miniCtx.strokeStyle = 'rgb(0, 0, 0)';
         miniCtx.lineWidth = 1 / scale;
@@ -774,10 +776,9 @@ CanvasState.prototype.draw = function (img) {
         miniCtx.lineTo(100 * 1 / scale, 49.5 * 1 / scale);
         miniCtx.moveTo(49.5 * 1 / scale, 0 * 1 / scale);
         miniCtx.lineTo(49.5 * 1 / scale, 100 * 1 / scale);
-
         miniCtx.stroke();
+        
 
-        miniCtx.drawImage(selectedCanvas, 50 * 1 / scale - this.currentx, 50 * 1 / scale - this.currenty);
 
         this.floatingCanvasValid = true
 
