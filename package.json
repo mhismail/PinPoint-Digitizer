@@ -1,0 +1,62 @@
+{
+  "name": "PinPoint",
+  "productName": "PinPoint",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "Digitize your Data",
+  "author": "Mohamed Ismail <mismail1993@gmail.com>",
+  "homepage": "https://www.mysite.com",
+  "main": "main.js",
+  "scripts": {
+    "postinstall": "install-app-deps",
+    "start": " electron main.js",
+    "package": "build --dir",
+    "dist": "build"
+  },
+  "build": {
+    "appId": "PinPoint",
+    "mac": {
+      "category": "public.app.category.productivity"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "squirrel",
+      "icon": "build/icon.ico"
+    }
+  },
+  "devDependencies": {
+    "asar": "^0.13.0",
+    "electron-builder": "^19.27.7",
+    "electron-installer-debian": "^0.5.2",
+    "electron-packager": "^9.1.0",
+    "electron-prebuilt": "^1.4.13"
+  },
+  "dependencies": {
+    "datatables.net": "^1.10.16",
+    "datatables.net-dt": "^1.10.16",
+    "electron": "^1.7.9",
+    "electron-store": "^1.3.0",
+    "jquery": "^3.2.1",
+    "jquery-ui": "^1.12.1",
+    "npm": "^5.4.2"
+  }
+}

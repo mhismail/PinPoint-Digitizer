@@ -1,0 +1,287 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    /* overflow-y: auto; */
+    /* vertical-align: middle; */
+}
+
+input[type=checkbox] {
+    width: 0;
+}
+
+body{
+    margin:0;
+    padding: 0;
+    min-width: 1350px;
+    width: 100%;
+    height: 600px;
+}
+
+.loaded-images-holder{
+    height: 80px;
+    background-color: #434d5f;
+    display: flex;
+    align-items: center; 
+    overflow-x: auto;
+    white-space: nowrap;
+    overflow: auto;
+    flex:1;
+
+
+}
+
+.canvas-holder{
+    width: auto;
+    height: 100%;
+    background-color: #fff;
+    display: block;
+}
+
+.canvas-container {
+    position: relative;
+    height: 600px;
+    display: block;
+}
+.floating-canvas{
+    border: 1px solid black;
+    border-radius: 50px;
+    pointer-events: none;
+
+}
+
+
+.controls{
+  width: 348px;
+  display: block;
+  float: left;
+  height: 100%;
+  overflow-y: auto;
+  text-align: center;
+  box-sizing: initial;
+    position: relative;
+}
+
+.pre-canvas-container{
+    width: 1000px;
+    height:600px;
+    overflow:auto;
+display: block;
+    float: left;
+}
+
+canvas{
+    cursor: none;
+    position: absolute;
+}
+
+.inactive-canvas *{
+    height: 0px;
+    width:0px;
+    display:none;
+}
+
+.settings, .zoom{
+    width:60px;
+    height:60px;
+    position: relative;
+    text-align: center;
+    margin-left: 20px;
+    
+    
+}
+
+.zoom{
+    position: absolute;
+    top: 0;
+    left:0;   
+}
+
+
+.zoom2{
+    position: absolute;
+    top: 6%;
+    left:0;  
+}
+
+
+.image-icon{
+    height:60px;
+	background-image: linear-gradient(#072355,#6d6fc7);
+    position: relative;
+    display: flex;
+    text-align: center;
+    margin-left: 20px;
+/*    border-radius: 10px;*/
+    box-shadow: 0px 0px 4px 3px #434d5f inset;
+    overflow-x:hidden;
+    min-height: 60px;
+    box-sizing: content-box;
+}
+
+.image-icon-selected{
+    border-bottom: 8px solid #bec1e3;
+    border-top: 8px solid #434d5f;
+}
+
+.image-icon:hover {
+    /* border-radius: 30px; */
+    /* border: #8de0ff 1px solid; */
+    cursor: pointer;
+    border-bottom: 8px solid #1fca20;
+    border-top: 8px solid #434d5f;
+}
+
+
+
+
+.settings i, .zoom i{
+    color: #bec1e3;
+    font-size: 40px;  
+    line-height: 60px;
+}
+
+i.fa.fa-plus:hover {
+    color: #81e281;
+    cursor: pointer;
+}
+
+i.fa.fa-minus:hover {
+    color: #ea0909;
+    cursor: pointer;
+}
+
+.close {
+    background-color: rgba(88, 88, 88,.5);
+    line-height: 0;
+    height: 22px;
+    width: 22px;
+    border-radius: 22px;
+    margin-left: auto;
+}
+
+.close:hover {
+    background-color: rgba(88, 88, 88,.8);
+    line-height: 0;
+    height: 22px;
+    width: 22px;
+    border-radius: 22px;
+    margin-left: auto;
+}
+.close i {
+    color: #555555;
+    line-height: 22px;
+}
+
+.close i:hover {
+    color:#db0d0d
+}
+
+::-webkit-scrollbar {     
+        background-color: #fff;
+        width: .6em;
+        height: .6em;
+}
+
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: rgba(0,0,0,0.1);
+  border: 1px solid #ccc;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background:  #fff;
+/*    linear-gradient(left, #fff, #e4e4e4);*/
+  border: 1px solid #aaa;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #fff;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background:  #fff;
+/*    linear-gradient(left, #22ADD4, #1E98BA);*/
+}
+
+.mini-canvas{
+    position: relative;
+    cursor: default;
+    margin: auto;
+}
+
+.name-input {
+    margin-bottom: 20px;
+}
+
+.min-max{
+    display: inline-block;
+    width: 40%;
+    padding: 5px;
+}
+
+.min-max input{
+    display: inline-block;
+    width: 100%;
+}
+
+.log10, #checkbox{
+    display: inline-block;
+    width: 20%;
+    vertical-align: top;
+}
+
+.calibrate-container{
+    display: inline-block;
+    width: 50%;
+}
+
+.name-input{
+    display: none;
+    width: 50%;
+}
+
+.zoom i{ 
+    color: #303033;
+    
+}
+
+
+.checkbox-container {
+	width: 20px;
+	height: 20px;
+	background: #ddd;
+	border-radius: 0;
+	position: relative;
+	box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+	margin: auto;
+    margin-top: 3px;
+}
+
+.checkbox-container label {
+	display: block;
+	width: 14px;
+	height: 14px;
+	border-radius: 0;
+	transition:  .2s cubic-bezier(.09, .96, .86, .07);
+	cursor: pointer;
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	z-index: 1;
+	background: #fff;
+	box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
+}
+
+.checkbox-container input[type=checkbox]:checked + label {
+	background: #26ca28;
+
+}
+
+
+.example {
+    position: relative;
+}
+
+
