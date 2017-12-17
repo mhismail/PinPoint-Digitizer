@@ -652,7 +652,7 @@ CanvasState.prototype.draw = function (img) {
     if (this.nearestPoint != this.nearestPointLast) {
         var selectedCtx = this.canvasSelectedCtx;
         this.clear(selectedCtx);
-        $("td").parent().css('color', 'black')
+        $("td").parent().css({"border-radius": "", "box-shadow": "" })
 
         if (this.nearestPoint != null) {
             var nearestPoint = this.nearestPoint;
@@ -668,13 +668,10 @@ CanvasState.prototype.draw = function (img) {
                 dataPoints = dataPoints.concat(this.calibrations[i].dataPoint)
             }
             l = dataPoints.length;
-            console.log(l)
-            
             var nearestPointIndex=l-this.nearestPointIndex;
             $("td").filter(function() {
             return $(this).html() == nearestPointIndex ;
-            }).parent().css('color', '#2ac94f')
-                            console.log(nearestPointIndex)
+            }).parent().css({"border-radius": "5px", "box-shadow": "rgb(220, 220, 220) 0px 0px 19px 1px inset" })
 
 
             var el =  $("td").filter(function() {
