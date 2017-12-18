@@ -1,6 +1,6 @@
 ## PinPoint Digitzer
 
-PinPoint digitizer is an open-source, cross-platform, desktop application to facilitate the extraction of data from images of plots. Data can be captured from plots with both linear or log scaled axes. PinPoint's user interface was designed for maximal accuracy and an intuitive workflow. 
+PinPoint Digitizer is an open-source, cross-platform, desktop application to facilitate the extraction of data from images of plots. Data can be captured from plots with both linear or log scaled axes. PinPoint's user interface was designed for maximal accuracy and an intuitive workflow. 
 
 ## Features 
 
