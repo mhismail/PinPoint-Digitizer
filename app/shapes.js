@@ -14,6 +14,16 @@ function findDistance(x1, y1, x2, y2) {
 
 }
 
+function copyToClipboard(val){
+  var dummy = document.createElement("textarea");
+  document.body.appendChild(dummy);
+  dummy.setAttribute("id", "dummy_id");
+  document.getElementById("dummy_id").value=val;
+  dummy.select();
+  document.execCommand("copy");
+  document.body.removeChild(dummy);
+}
+
 // shape parameters
 function Shape(x, y, len, fill, outline) {
     this.x = x || 0;
@@ -102,9 +112,6 @@ function CanvasState(canvas, img) {
         paging: false,
         searching: false,
         info : false,
-        buttons: [
-            'copy', 'csv'
-        ],
         order: [[3, 'desc']]
 
     });
@@ -518,37 +525,33 @@ function CanvasState(canvas, img) {
   }); 
     })
     
-    
-    
+
     $('#' + myState.id).parent().parent().parent().find('.R').mousedown( function () {
     
     var table = $('#' + myState.id).parent().parent().parent().find('.example');
     var data = table.DataTable().rows().data().toArray();
     console.log(data)
-    var filename=dialog.showSaveDialog({ filters: [
+    var lineDataNoQuotes = table.DataTable().column(2).data().toArray()
+    console.log(lineDataNoQuotes.join('-'))
 
-     { name: '.csv', extensions: ['csv'] }
-
-    ]}, function (filename) {
-
-        
     let csvContent = "";
-    data.forEach(function(rowArray){
-    let row = rowArray.join(",");
-    csvContent += row + "\r\n"; // add carriage return
-    }); 
-        
-        
-    fs.writeFileSync(filename, csvContent, 'utf-8');
-  }); 
-    })
-    // **** Options! ****
-    //    this.interval = 10;
-    //    setInterval(function () {
-    //        myState.draw(img);
-    //    }, myState.interval);
+    var XData = "data.frame(X = c("+ table.DataTable().columns(0).data().toArray();
+    var YData = "),\nY = c("+ table.DataTable().columns(1).data().toArray();
+    var LineData = "),\nName = c("+"'"+lineDataNoQuotes.join("','")+"'";
+    var PointData = "),\nPoint= c("+ table.DataTable().columns(3).data().toArray();
+    var content = XData+YData+LineData+PointData+"))"
 
+//    data.forEach(function(rowArray){
+//    let row = rowArray.join(",");
+//    csvContent += row + "\n"; 
+//    }); 
+    copyToClipboard(content)
+        
+
+
+    })
 }
+
 
 
 CanvasState.prototype.addPoint = function (x, y) {
