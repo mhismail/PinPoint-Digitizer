@@ -1,5 +1,6 @@
 'use strict';
 
+var fs = require('fs'); // require only if you don't already have it
 
 var setAll = (obj, val) => Object.keys(obj).forEach(k => obj[k] = val);
 var setNull = obj => setAll(obj, null);
@@ -100,6 +101,10 @@ function CanvasState(canvas, img) {
         ],
         paging: false,
         searching: false,
+        info : false,
+        buttons: [
+            'copy', 'csv'
+        ],
         order: [[3, 'desc']]
 
     });
@@ -175,6 +180,10 @@ function CanvasState(canvas, img) {
             }
         }
     });
+    
+
+    
+    
     var canMove = true;
     $(window).keydown( function (canmove) {
         if ($('#' + myState.id).hasClass('active-canvas')) {
@@ -416,9 +425,6 @@ function CanvasState(canvas, img) {
         //        myState.dataPoints = loadstate.dataPoints;
         myState.draw(img)
 
-
-
-
     })
     
 //    $('#' + myState.id).parent().parent().parent().find('.prev').click( function () {
@@ -487,6 +493,55 @@ function CanvasState(canvas, img) {
         }
 
     });
+    
+    
+    $('#' + myState.id).parent().parent().parent().find('.csv').mousedown( function () {
+    
+    var table = $('#' + myState.id).parent().parent().parent().find('.example');
+    var data = table.DataTable().rows().data().toArray();
+    console.log(data)
+    var filename=dialog.showSaveDialog({ filters: [
+
+     { name: '.csv', extensions: ['csv'] }
+
+    ]}, function (filename) {
+
+        
+    let csvContent = "";
+    data.forEach(function(rowArray){
+    let row = rowArray.join(",");
+    csvContent += row + "\r\n"; // add carriage return
+    }); 
+        
+        
+    fs.writeFileSync(filename, csvContent, 'utf-8');
+  }); 
+    })
+    
+    
+    
+    $('#' + myState.id).parent().parent().parent().find('.R').mousedown( function () {
+    
+    var table = $('#' + myState.id).parent().parent().parent().find('.example');
+    var data = table.DataTable().rows().data().toArray();
+    console.log(data)
+    var filename=dialog.showSaveDialog({ filters: [
+
+     { name: '.csv', extensions: ['csv'] }
+
+    ]}, function (filename) {
+
+        
+    let csvContent = "";
+    data.forEach(function(rowArray){
+    let row = rowArray.join(",");
+    csvContent += row + "\r\n"; // add carriage return
+    }); 
+        
+        
+    fs.writeFileSync(filename, csvContent, 'utf-8');
+  }); 
+    })
     // **** Options! ****
     //    this.interval = 10;
     //    setInterval(function () {
@@ -652,7 +707,9 @@ CanvasState.prototype.draw = function (img) {
     if (this.nearestPoint != this.nearestPointLast) {
         var selectedCtx = this.canvasSelectedCtx;
         this.clear(selectedCtx);
-        $("td").parent().css({"border-radius": "", "box-shadow": "" })
+        var cells = $('#' + this.id).parent().parent().parent().find('td');
+        
+        cells.parent().css({"border-radius": "", "box-shadow": "" })
 
         if (this.nearestPoint != null) {
             var nearestPoint = this.nearestPoint;
@@ -669,12 +726,12 @@ CanvasState.prototype.draw = function (img) {
             }
             l = dataPoints.length;
             var nearestPointIndex=l-this.nearestPointIndex;
-            $("td").filter(function() {
+            cells.filter(function() {
             return $(this).html() == nearestPointIndex ;
             }).parent().css({"border-radius": "5px", "box-shadow": "rgb(220, 220, 220) 0px 0px 19px 1px inset" })
 
 
-            var el =  $("td").filter(function() {
+            var el =  cells.filter(function() {
                     return $(this).html() == nearestPointIndex ;
                     }).parent();
         if(el.offset()){
@@ -717,6 +774,23 @@ CanvasState.prototype.draw = function (img) {
 
         var table = $('#' + this.id).parent().parent().parent().find('.example');
         table.DataTable().clear().rows.add(dataPoints).draw();
+        $( "tr td:nth-child(3)" ).attr( "contenteditable", "true" );
+        $( "tr td:nth-child(3)" ).attr( "tabindex", "0" );
+        var a = this;
+        //add listerners to cells
+        $("td").keyup(function(){
+        console.log("boog")
+        var i = l - $(this).next().html();
+        console.log(i)
+
+        a.dataPoints[i][2] = $(this).html();
+        a.valid = false;
+        a.miniCanvasValid = false;
+        a.floatingCanvasValid = false;
+        a.draw(img);
+        })
+        
+        
         this.tableValid = true;
     }
 
