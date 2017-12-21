@@ -388,9 +388,6 @@ function CanvasState(canvas, img) {
 
     $("#"+this.id).mousemove( function (e) {
         var mouse = myState.getMouse(e);
-        console.log("x="+mouse.x)
-        console.log("y="+mouse.y)
-
         myState.currentx = mouse.x;
         myState.currenty = mouse.y;
         myState.miniCanvasValid = false;

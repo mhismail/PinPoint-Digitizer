@@ -166,13 +166,11 @@ canvas{
 }
 
 .settings, .zoom{
-    width:60px;
-    height:60px;
+    width: 30px;
+    height: 30px;
     position: relative;
     text-align: center;
-    margin-left: 20px;
-    
-    
+    margin-left: 0px;
 }
 
 .zoom{
@@ -228,11 +226,11 @@ span#icon2 {}
 
 .settings i, .zoom i{
     color: #2ee02d;
-    font-size: 40px;
-    line-height: 60px;
+    font-size: 30px;
+    line-height: 38px;
 }
 
-i.fa.fa-plus:hover {
+.settings-container i:hover {
     color: #81e281;
     cursor: pointer;
 }
@@ -376,6 +374,15 @@ i.fa.fa-minus:hover {
 .example {
     position: relative;
 }
+
+.settings-container {
+  display: grid;
+  grid-template-columns: 40px 40px;
+  grid-gap: 1px;
+  height: 100%;
+  margin-left: 10px;
+}
+
 
 
 

@@ -45,6 +45,9 @@ function canvasContainer(i, width, height) {
 function addImageListener() {
     settingsEl.removeEventListener('click', addImageListener);
     addImage();
+}
+
+function addEmptyImageListener() {
     addEmptyImage();
 }
 
@@ -53,8 +56,11 @@ function addI() {
 }
 
 var i = 0;
-var settingsEl = document.querySelector('.settings');
+var settingsEl = document.querySelector('.newImage');
 settingsEl.addEventListener('click', addImageListener);
+
+var empty = document.querySelector('.empty');
+empty.addEventListener('click', addEmptyImageListener);
 
 function addImage() {
     var filesa = dialog.showOpenDialog({
@@ -71,7 +77,6 @@ function addImage() {
             if (newimage) {
                 newimage = false;
                 var files = filesa[j]
-                alert(files)
                 if (filesa[j] !== undefined) {
                     var img = new Image(); // Create new img element
                     img.addEventListener('load', function () {
@@ -85,7 +90,7 @@ function addImage() {
 
                         var iconHolderWidth = 60 * img.width / img.height;
                         //create new icon in icon bar
-                        $(".settings").after(iconSpan(thisi, files, iconHolderWidth));
+                        $(".settings-container").after(iconSpan(thisi, files, iconHolderWidth));
                         //add event listeners
                         var iconEl = $('#icon' + thisi);
                         iconEl.addClass("image-icon-selected")
@@ -207,7 +212,6 @@ settingsEl.ondrop = (e) => {
 
 function addDragImage(path) {
     var filesa = [path]
-    alert(filesa)
     var j = 0;
     var newimage = true;
     if (filesa !== undefined) {
@@ -227,7 +231,7 @@ function addDragImage(path) {
 
                         var iconHolderWidth = 60 * img.width / img.height;
                         //create new icon in icon bar
-                        $(".settings").after(iconSpan(thisi, files, iconHolderWidth));
+                        $(".settings-container").after(iconSpan(thisi, files, iconHolderWidth));
                         //add event listeners
                         var iconEl = $('#icon' + thisi);
                         iconEl.addClass("image-icon-selected")
@@ -322,8 +326,7 @@ function addDragImage(path) {
 }
 
 function addEmptyImage() {
-    var filesa = ["C:/Users/Mohamed/Documents/electron/pinpoint/images/empty.png"]
-    alert(filesa)
+    var filesa = ["./images/empty.png"]
     var j = 0;
     var newimage = true;
     if (filesa !== undefined) {
@@ -343,7 +346,7 @@ function addEmptyImage() {
 
                         var iconHolderWidth = 60 * img.width / img.height;
                         //create new icon in icon bar
-                        $(".settings").after(iconSpan(thisi, files, iconHolderWidth));
+                        $(".settings-container").after(iconSpan(thisi, files, iconHolderWidth));
                         //add event listeners
                         var iconEl = $('#icon' + thisi);
                         iconEl.addClass("image-icon-selected")
@@ -433,7 +436,7 @@ function addEmptyImage() {
             }
         })
     } else {
-        settingsEl.addEventListener('click', addImageListener)
+        empty.addEventListener('click', addEmptyImageListener)
     }
 }
 
