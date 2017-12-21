@@ -3,10 +3,93 @@
     margin: 0;
     /* overflow-y: auto; */
     /* vertical-align: middle; */
+
 }
 
 input[type=checkbox] {
     width: 0;
+}
+
+html, body {
+    background: white;
+    /* height: calc(100% - 60px); */
+    background: rgba(171, 163, 163, 0.17);
+}
+
+
+
+
+#title-bar {
+
+-webkit-app-region: drag;
+
+height: 32px;
+
+padding: 0px;
+
+margin: 0px;
+
+color: #ffffff;
+
+background: rgba(55, 105, 48, 0.94);
+font-family: sans-serif;
+}
+
+
+
+#title {
+
+ position: fixed;
+
+ top: 0px;
+
+ left: 12px; 
+
+ line-height: 32px;
+
+ font-size: 14px;
+
+}
+
+
+
+#title-bar-btns {
+
+ -webkit-app-region: no-drag;
+
+ position: fixed;
+
+ top: 0px;
+
+ right: 0px; 
+
+}
+
+
+
+
+#title-bar-btns button {
+
+ height: 32px;
+
+ width: 32px;
+
+ background-color: transparent;
+
+ border: none;
+
+ color: #F1F1F1;
+
+ font-size: 16px;
+
+}
+
+
+
+#title-bar-btns button:hover {
+
+ background-color: #3F3F41;
+
 }
 
 body{
@@ -14,24 +97,26 @@ body{
     padding: 0;
     min-width: 1350px;
     width: 100%;
-    height: 600px;
+    /* height: 600px; */
+    height: calc(100% );
 }
 
 .loaded-images-holder{
     height: 80px;
-    background-color: #ffffff;
+    background-color: #f7f7f7;
     display: flex;
     align-items: center;
     overflow-x: auto;
     white-space: nowrap;
     overflow: auto;
+    border-bottom: solid black 2px;
     flex:1;
 }
 
 .canvas-holder{
     width: auto;
-    height: 100%;
-    background-color: #fff;
+    height: calc(100% - 112px);
+    background-color: rgba(255, 255, 255);
     display: block;
 }
 
@@ -49,22 +134,24 @@ body{
 
 
 .controls{
-  width: 348px;
+  width: calc(100% - 1000px);
   display: block;
   float: left;
   height: 100%;
   overflow-y: auto;
   text-align: center;
   box-sizing: initial;
-    position: relative;
+  position: relative;
+  background: white;
 }
 
 .pre-canvas-container{
     width: 1000px;
     height:600px;
     overflow:auto;
-display: block;
+    display: block;
     float: left;
+
 }
 
 canvas{
@@ -140,8 +227,8 @@ span#icon2 {}
 
 
 .settings i, .zoom i{
-    color: #bec1e3;
-    font-size: 40px;  
+    color: #2ee02d;
+    font-size: 40px;
     line-height: 60px;
 }
 
@@ -289,5 +376,7 @@ i.fa.fa-minus:hover {
 .example {
     position: relative;
 }
+
+
 
 

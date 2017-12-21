@@ -2,9 +2,13 @@
 
 var fs = require('fs'); // require only if you don't already have it
 
+
 var setAll = (obj, val) => Object.keys(obj).forEach(k => obj[k] = val);
 var setNull = obj => setAll(obj, null);
 var colors=["#e6194b","#3cb44b", "#ffe119","#0082c8","#f58231","#911eb4","#46f0f0","#f032e6"]
+
+
+
 
 
 function findDistance(x1, y1, x2, y2) {
@@ -165,6 +169,12 @@ function CanvasState(canvas, img) {
         if (e.which === 1) {
             var mouse = myState.getMouse(e);
             myState.addPoint(mouse.x / this.width, mouse.y / this.height)
+            console.log(mouse.x )
+            console.log(this.width) 
+            console.log(mouse.x / this.width)
+            console.log(mouse.y )
+            console.log(this.height) 
+            console.log(mouse.y / this.height)
             myState.valid = false;
             myState.nearestPoint = null;
             myState.nearestPointIndex = null;
@@ -378,6 +388,9 @@ function CanvasState(canvas, img) {
 
     $("#"+this.id).mousemove( function (e) {
         var mouse = myState.getMouse(e);
+        console.log("x="+mouse.x)
+        console.log("y="+mouse.y)
+
         myState.currentx = mouse.x;
         myState.currenty = mouse.y;
         myState.miniCanvasValid = false;
@@ -621,7 +634,6 @@ CanvasState.prototype.draw = function (img) {
 
 
         if (l >= 2) {
-            console.log([this.coordinates[0][1],this.coordinates[1][1]])
             if (this.coordinates[0][1].toFixed(8)==this.coordinates[1][1].toFixed(8)){
                 var color = "#1ffd1f";
             }else{ 
@@ -744,7 +756,6 @@ CanvasState.prototype.draw = function (img) {
               var offset;
 
               offset =  elOffset - (frameHeight / 2);
-                console.log(offset)
 
               el.parent().parent().parent().animate({
                 scrollTop: offset
@@ -782,9 +793,7 @@ CanvasState.prototype.draw = function (img) {
         var a = this;
         //add listerners to cells
         $("td").keyup(function(){
-        console.log("boog")
         var i = l - $(this).next().html();
-        console.log(i)
 
         a.dataPoints[i][2] = $(this).html();
         a.valid = false;
