@@ -20,11 +20,71 @@
            <button id="close-btn">x</button>
       </div>
     </div>
+    <div class = Preferences id = Preferences>
+      <div>
+        <span class=woog>
+          <h4>
+            Magnifying glass:
+          </h4>
+        </span>
+        <span class = woog>
+          <div class = "checkbox-container">
+              <input type="checkbox" value="1" id="magnifier" name="magnifier"/>
+              <label for="magnifier"></label>
+            </div>
+        </span>
+      </div>
+      <div>
+        <span class=woog>
+          <h4>
+            Select crosshair color:
+          </h4>
+        </span>
+        <span class = woog>
+          <input type="color" name="crosshairColor" value="#000000">
+        </span>
+      </div>
+      <div>
+        <span class=woog>
+          <h4>
+            Select point shape:
+          </h4>
+        </span>
+        <span class = woog>
+          <input type="radio" id="pointShapeChoice1"
+           name="pointShape" value="crosshair">
+          <label for="pointShapeChoice1">Cross-hair</label>
+
+          <input type="radio" id="pointShapeChoice2"
+           name="pointShape" value="Circle">
+          <label for="pointShapeChoice2">Circle</label>
+
+          <input type="radio" id="pointShapeChoice3"
+           name="pointShape" value="X">
+          <label for="pointShapeChoice3">X</label>
+        </span>
+      </div>
+      <div>
+        <span class=woog>
+          <h4>
+            Select highlighted point color :
+          </h4>
+        </span>
+        <span class = woog>
+          <input type="color" name="selectedPointColor" value="#000000">
+        </span>
+      </div>
+        <button id="saveprefs">Save</button>
+    </div>
     <div class="loaded-images-holder">
         <div class= settings-container>
-            <div class="settings"> <i class="fa fa-info"></i></div>
+            <a href= "https://github.com/mhismail/PinPoint"  target="_blank">
+                <div class="settings"> 
+                    <i class="fa fa-info"></i>
+                </div>
+            </a>
             <div class="settings empty"> <i class="fa fa-desktop"></i></div>
-            <div class="settings"> <i class="fa fa-gear"></i></div>
+            <div class="settings prefs"> <i class="fa fa-gear"></i></div>
             <div class="settings newImage"> <i class="fa fa-image"></i></div>
         </div>
     </div>
@@ -32,9 +92,12 @@
        
     </div>
      <div id="mousePosition"></div>
+    <script src="app/preferences.js"></script>
+
     <script src="app/index.js"></script>
     <script src="app/shapes.js"></script>
     <script src="app/min-max-close.js"></script>
+    <script src="app/drag.js"></script>
 
 </body>
 </html>

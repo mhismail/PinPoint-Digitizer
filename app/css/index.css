@@ -323,6 +323,8 @@ i.fa.fa-minus:hover {
     vertical-align: top;
 }
 
+
+
 .calibrate-container{
     display: inline-block;
     width: 50%;
@@ -383,7 +385,28 @@ i.fa.fa-minus:hover {
   margin-left: 10px;
 }
 
+.woog {
+    display:inline-block;
+    padding: 10px 0;
+}
+
+.preferences {
+    position: absolute;
+    left:50%;
+    margin-left: -200px;
+    top:50%;
+    margin-top: -125px;
+    width:400px;
+    height: 250px;
+    background-color: rgba(255, 255, 255, 0.90);
+    z-index: 10000;
+    border: 1px black solid;
+    display: none;
+    padding: 20px;
+}
 
 
-
+button#saveprefs {
+    margin-left: 45%;
+}
 

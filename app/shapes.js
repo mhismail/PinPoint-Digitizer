@@ -369,6 +369,8 @@ function CanvasState(canvas, img) {
      $(document).on('keydown', function(e){     if(e.keyCode==16){
                                                 myState.shifted= !myState.shifted;
                                                 myState.valid = false;
+                                                myState.miniCanvasValid = false;
+
                                                 myState.floatingCanvasValid = false;
                                                 myState.draw(img);}} );
 //    
@@ -607,8 +609,8 @@ CanvasState.prototype.draw = function (img) {
         $('#' + this.id).parent().parent().parent().find('.floating-canvas')[0].getContext('2d').clearRect(0, 0, 100, 100);
         $('#' + this.id).parent().parent().parent().find('.mini-canvas')[0].getContext('2d').setTransform(1, 0, 0, 1, 0, 0)
         $('#' + this.id).parent().parent().parent().find('.mini-canvas')[0].getContext('2d').scale(scale, scale)
-        $('#' + this.id).parent().parent().parent().find('.floating-canvas')[0].getContext('2d').setTransform(1, 0, 0, 1, 0, 0)
-        $('#' + this.id).parent().parent().parent().find('.floating-canvas')[0].getContext('2d').scale(scale, scale)
+       // $('#' + this.id).parent().parent().parent().find('.floating-canvas')[0].getContext('2d').setTransform(1, 0, 0, 1, 0, 0)
+        //$('#' + this.id).parent().parent().parent().find('.floating-canvas')[0].getContext('2d').scale(scale, scale)
         this.scaleValid = true;
     }
 
@@ -626,6 +628,31 @@ CanvasState.prototype.draw = function (img) {
         var l = this.coordinates.length;
         for (var i = 0; i < l; i++) {
             new Shape(Math.round(this.coordinates[i][0] * this.width), Math.round((-1 * this.coordinates[i][1] + 1) * this.height), 20, 'rgb(0, 108, 255)').draw(ctx);
+            
+            switch (i) {
+                case 0: {ctx.font = "15px Arial";
+                         ctx.fillStyle = "red";
+                         ctx.fillText("X-Min",this.coordinates[i][0] * this.width-15,(-1 * this.coordinates[i][1] + 1) * this.height-15);
+                         break
+                        }
+                case 1: {ctx.font = "15px Arial";
+                         ctx.fillStyle = "red";
+                         ctx.fillText("X-Max",this.coordinates[i][0] * this.width-15,(-1 * this.coordinates[i][1] + 1) * this.height-15);
+                         break
+
+                        }
+                case 2: {ctx.font = "15px Arial";
+                         ctx.fillStyle = "red";
+                         ctx.fillText("Y-Min",this.coordinates[i][0] * this.width-15,(-1 * this.coordinates[i][1] + 1) * this.height-15);
+                         break
+                        }
+                case 3: {ctx.font = "15px Arial";
+                         ctx.fillStyle = "red";
+                         ctx.fillText("Y-Max",this.coordinates[i][0] * this.width-15,(-1 * this.coordinates[i][1] + 1) * this.height-15);
+                          break
+                       }
+                    
+            }
         }
 
 
@@ -727,7 +754,7 @@ CanvasState.prototype.draw = function (img) {
             var nearestPoint = this.nearestPoint;
             var x = nearestPoint[0];
             var y = nearestPoint[1];
-            new Shape(Math.round(x * this.width), Math.round((-1 * y + 1) * this.height), 20, 'rgb(0, 108, 255)', 'rgb(252, 13, 13)').draw(selectedCtx);
+            new Shape(Math.round(x * this.width), Math.round((-1 * y + 1) * this.height), 20, preferences.selectedPointColor, 'rgb(252, 13, 13)').draw(selectedCtx);
             
             var dataPoints = this.dataPoints;
             var lengthCalibrations = this.calibrations.length
@@ -817,18 +844,13 @@ CanvasState.prototype.draw = function (img) {
         }
 
         miniCtx.drawImage(imageCanvas, 150 * 1 / scale - this.currentx, 150 * 1 / scale - this.currenty);
+        
+        if(!this.shifted){
         miniCtx.drawImage(this.canvas, 150 * 1 / scale - this.currentx, 150 * 1 / scale - this.currenty);
-        miniCtx.beginPath();
-        miniCtx.strokeStyle = 'rgb(0, 0, 0)';
-        miniCtx.lineWidth = 1 / scale;
-        miniCtx.moveTo(0 * 1 / scale, 150 * 1 / scale);
-        miniCtx.lineTo(300 * 1 / scale, 150 * 1 / scale);
-        miniCtx.moveTo(150 * 1 / scale, 0 * 1 / scale);
-        miniCtx.lineTo(150 * 1 / scale, 300 * 1 / scale);
 
-        miniCtx.stroke();
 
         miniCtx.drawImage(selectedCanvas, 150 * 1 / scale - this.currentx, 150 * 1 / scale - this.currenty);
+        }
 
 
         this.miniCanvasValid = true
@@ -845,7 +867,10 @@ CanvasState.prototype.draw = function (img) {
 
         var imageCanvas = $('#' + this.id).prev().prev()[0]
         var selectedCanvas = $('#' + this.id).prev()[0]
+        var miniCtx1 = $('#' + this.id).parent().parent().parent().find('.mini-canvas')[0]
+
         var miniCtx = $('#' + this.id).parent().parent().parent().find('.floating-canvas')[0].getContext('2d')
+        
         if (this.scale >= 1) {
             var scale = this.scale;
         } else {
@@ -853,20 +878,34 @@ CanvasState.prototype.draw = function (img) {
         }
         miniCtx.clearRect(0, 0, 100, 100);
 
-        miniCtx.drawImage(imageCanvas, 50 * 1 / scale - this.currentx, 50 * 1 / scale - this.currenty);
-        if(!this.shifted){
-        miniCtx.drawImage(this.canvas, 50 * 1 / scale - this.currentx, 50 * 1 / scale - this.currenty);
+//        miniCtx.drawImage(imageCanvas, 50 * 1 / scale - this.currentx, 50 * 1 / scale - this.currenty);
+//        if(!this.shifted){
+//        miniCtx.drawImage(this.canvas, 50 * 1 / scale - this.currentx, 50 * 1 / scale - this.currenty);
+//        
+//        miniCtx.drawImage(selectedCanvas, 50 * 1 / scale - this.currentx, 50 * 1 / scale - this.currenty);
+//        }
         
-        miniCtx.drawImage(selectedCanvas, 50 * 1 / scale - this.currentx, 50 * 1 / scale - this.currenty);
-        }
+        //draw cross hairs on floating canvas
+        miniCtx.drawImage(miniCtx1,-100,-100)
         miniCtx.beginPath();
-        miniCtx.strokeStyle = 'rgb(0, 0, 0)';
-        miniCtx.lineWidth = 1 / scale;
-        miniCtx.moveTo(0, 49.5 * 1 / scale);
-        miniCtx.lineTo(100 * 1 / scale, 49.5 * 1 / scale);
-        miniCtx.moveTo(49.5 * 1 / scale, 0 * 1 / scale);
-        miniCtx.lineTo(49.5 * 1 / scale, 100 * 1 / scale);
+        miniCtx.strokeStyle = preferences.crosshairColor;
+        miniCtx.lineWidth = 1;
+        miniCtx.moveTo(0, 49.5 );
+        miniCtx.lineTo(100 , 49.5 );
+        miniCtx.moveTo(49.5, 0 * 1 / scale);
+        miniCtx.lineTo(49.5 , 100 );
         miniCtx.stroke();
+        
+        
+        /// draw cross hairs on mini canvas
+        miniCtx1.getContext('2d').beginPath();
+        miniCtx1.getContext('2d').strokeStyle = preferences.crosshairColor;
+        miniCtx1.getContext('2d').lineWidth = 1 / scale;
+        miniCtx1.getContext('2d').moveTo(0 * 1 / scale, 150 * 1 / scale);
+        miniCtx1.getContext('2d').lineTo(300 * 1 / scale, 150 * 1 / scale);
+        miniCtx1.getContext('2d').moveTo(150 * 1 / scale, 0 * 1 / scale);
+        miniCtx1.getContext('2d').lineTo(150 * 1 / scale, 300 * 1 / scale);
+        miniCtx1.getContext('2d').stroke();
         
 
 

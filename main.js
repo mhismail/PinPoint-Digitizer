@@ -5,6 +5,7 @@ const {app} = electron;
 const {BrowserWindow} = electron;
 const {globalShortcut} = electron;
 const {ipcRenderer} = electron;
+const {webContents} = electron;
 
 
 var mainWindow = null;
@@ -30,3 +31,5 @@ app.on('ready', function() {
 app.on('window-all-closed', () => {
   app.quit();
 });
+
+

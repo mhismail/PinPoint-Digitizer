@@ -14,6 +14,18 @@ require("jquery-ui")
 const Store = require('electron-store');
 const store = new Store();
 
+var shell = require('electron').shell;
+//open links externally by default
+$(document).on('click', 'a[href^="http"]', function(event) {
+    event.preventDefault();
+    shell.openExternal(this.href);
+});
+
+
+$(".prefs").mousedown(function (e) {
+    $(".preferences").show()
+});
+
 document.addEventListener('dragover', event => event.preventDefault())
 document.addEventListener('drop', event => event.preventDefault())
 
