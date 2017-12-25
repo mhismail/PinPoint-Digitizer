@@ -38,11 +38,12 @@ function Shape(x, y, len, fill, outline) {
 }
 
 // Draws a crosshair shape to a given context
-Shape.prototype.draw = function (ctx) {
+Shape.prototype.draw = function (ctx, shapeType) {
     var x = this.x;
     var y = this.y;
     var length = this.len;
 
+    if (shapeType == "crosshair"){ 
     ctx.strokeStyle = this.outline;
     ctx.beginPath();
     ctx.lineWidth = 3;
@@ -60,6 +61,21 @@ Shape.prototype.draw = function (ctx) {
     ctx.moveTo(x + length / 2, y);
     ctx.lineTo(x - length / 2, y);
     ctx.stroke();
+    }
+    
+    if (shapeType == "circle"){ 
+    ctx.strokeStyle = this.outline;
+    ctx.lineWidth = 1;
+
+    ctx.beginPath();
+    ctx.arc(x,y,4,0,2*Math.PI);
+    ctx.stroke();
+    
+    ctx.fillStyle = this.fill;
+    ctx.beginPath();
+    ctx.arc(x,y,3,0,2*Math.PI);
+    ctx.fill();
+    }
 }
 
 function CanvasState(canvas, img) {
@@ -562,6 +578,13 @@ function CanvasState(canvas, img) {
 
 
     })
+    
+    
+    $("#saveprefs").mousedown(function (e) {
+    myState.valid = false
+    myState.draw(img)
+    });
+
 }
 
 
@@ -627,7 +650,7 @@ CanvasState.prototype.draw = function (img) {
         };
         var l = this.coordinates.length;
         for (var i = 0; i < l; i++) {
-            new Shape(Math.round(this.coordinates[i][0] * this.width), Math.round((-1 * this.coordinates[i][1] + 1) * this.height), 20, 'rgb(0, 108, 255)').draw(ctx);
+            new Shape(Math.round(this.coordinates[i][0] * this.width), Math.round((-1 * this.coordinates[i][1] + 1) * this.height), 20, 'rgb(0, 108, 255)').draw(ctx,preferences.pointShape);
             
             switch (i) {
                 case 0: {ctx.font = "15px Arial";
@@ -691,7 +714,7 @@ CanvasState.prototype.draw = function (img) {
             var nearestCoordinate = this.nearestCoordinate;
             var x = nearestCoordinate[0];
             var y = nearestCoordinate[1];
-            new Shape(Math.round(x * this.width), Math.round((-1 * y + 1) * this.height), 20, 'rgb(0, 108, 255)', 'rgb(252, 13, 13)').draw(ctx);
+            new Shape(Math.round(x * this.width), Math.round((-1 * y + 1) * this.height), 20, 'rgb(0, 108, 255)', 'rgb(252, 13, 13)').draw(ctx,preferences.pointShape);
         }
 
 
@@ -736,7 +759,7 @@ CanvasState.prototype.draw = function (img) {
         // draw all shapes
         var l = points.length;
         for (var i = 0; i < l; i++) {
-            new Shape(Math.round(points[i][0] * this.width), Math.round((-1 * points[i][1] + 1) * this.height), 20, colors[colorsindices[i]]).draw(ctx);
+            new Shape(Math.round(points[i][0] * this.width), Math.round((-1 * points[i][1] + 1) * this.height), 20, colors[colorsindices[i]]).draw(ctx,preferences.pointShape);
         }
         
 
@@ -754,7 +777,7 @@ CanvasState.prototype.draw = function (img) {
             var nearestPoint = this.nearestPoint;
             var x = nearestPoint[0];
             var y = nearestPoint[1];
-            new Shape(Math.round(x * this.width), Math.round((-1 * y + 1) * this.height), 20, preferences.selectedPointColor, 'rgb(252, 13, 13)').draw(selectedCtx);
+            new Shape(Math.round(x * this.width), Math.round((-1 * y + 1) * this.height), 20, preferences.selectedPointColor, 'rgb(252, 13, 13)').draw(selectedCtx,preferences.pointShape);
             
             var dataPoints = this.dataPoints;
             var lengthCalibrations = this.calibrations.length

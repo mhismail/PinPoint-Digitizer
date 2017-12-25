@@ -1,25 +1,29 @@
 <html>
 <head>
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+    <script src="app/jquery/jquery.js"></script> 
     <script>window.$ = window.jQuery = require('jquery');</script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+    <script src="app/jquery-ui/jquery-ui.js"></script> 
 <!--    <script>window.onload=function(){draw();}</script>-->
     <link href="app/css/index.css" rel="stylesheet" type="text/css"/>
-    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+    <link href="app/css/datatables.css" rel="stylesheet" type="text/css"/>
 
     <link rel="stylesheet" type="text/css" href="app/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 
+
 <body >
-    <div id="title-bar">
-      <div id="title">PinPoint Digitizer</div>
-      <div id="title-bar-btns">
-           <button id="min-btn">-</button>
-           <button id="max-btn">+</button>
-           <button id="close-btn">x</button>
-      </div>
+    <div class=title-bar-container>
+        <div id="title-bar">
+            <div id="title">PinPoint Digitizer</div>
+            <div id="title-bar-btns">
+            <button id="min-btn">-</button>
+            <button id="max-btn">+</button>
+            <button id="close-btn">x</button>
+            </div>
+        </div>
     </div>
+    <div class=main-container>
     <div class = Preferences id = Preferences>
       <div>
         <span class=woog>
@@ -52,11 +56,11 @@
         </span>
         <span class = woog>
           <input type="radio" id="pointShapeChoice1"
-           name="pointShape" value="crosshair">
+           name="pointShape" value="crosshair" checked="checked">
           <label for="pointShapeChoice1">Cross-hair</label>
 
           <input type="radio" id="pointShapeChoice2"
-           name="pointShape" value="Circle">
+           name="pointShape" value="circle">
           <label for="pointShapeChoice2">Circle</label>
 
           <input type="radio" id="pointShapeChoice3"
@@ -92,6 +96,7 @@
        
     </div>
      <div id="mousePosition"></div>
+        </div>
     <script src="app/preferences.js"></script>
 
     <script src="app/index.js"></script>
