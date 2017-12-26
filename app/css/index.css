@@ -24,6 +24,9 @@ html {
 
 
 
+.title-bar-container{
+    height: 32px;       
+}
 
 #title-bar {
     -webkit-app-region: drag;

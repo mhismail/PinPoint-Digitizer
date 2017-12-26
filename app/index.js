@@ -15,6 +15,15 @@ const Store = require('electron-store');
 const store = new Store();
 
 var shell = require('electron').shell;
+const {desktopCapturer} = electron;
+const {electronScreen} = electron;
+const os = require('os')
+const path = require('path')
+
+
+
+
+
 //open links externally by default
 $(document).on('click', 'a[href^="http"]', function(event) {
     event.preventDefault();
@@ -50,7 +59,7 @@ function iconSpan(i, files, iconHolderWidth) {
 
 function canvasContainer(i, width, height) {
     return (
-        '<div class="container" id="canvas-' + i + '"><div class="pre-canvas-container" ><div class="canvas-container" ><canvas class = "main-canvas" id="canvas-container-img-' + i + '" style = "display:inline;"  width="' + width + '" height="' + height + '"></canvas><canvas class = "canvas-selected main-canvas" id="canvas-container-selected-' + i + '" style = "display:inline;"  width="' + width + '" height="' + height + '"></canvas><canvas class = "main-canvas" id="canvas-container-' + i + '" style = "display:inline;"  width="' + width + '" height="' + height + '"></canvas><canvas class = "floating-canvas" height = "100" width = "100"></canvas></div></div><div class = "controls"><div class = "mini-canvas-container"><canvas class = "mini-canvas" width = "300" height = "300"></canvas></div> <span class="zoom"> <i class="fa fa-minus"></i></span><span class="zoom2 zoom" id ="zoom2"> <i class="fa fa-plus"></i></span><div class = "calibrate-container"><button class = "calibrate" disabled>Calibrate</button></div><div class = "name-input" ><div><label>Name</label></div><input type="text" name="name" value="Line 1"></div><div class = "coordinates"><div class= x-axis><div class="min-max"><div><label>X Minimum</label></div><input type="number" name="xlow" value="0"></div><div class="min-max"><div><label>X Maximum</label></div><input type="number" name="xhigh" value="1"></div><div class= log10><div><p>Log10</p></div><div class = "checkbox-container"><input type="checkbox" value="0" id="xlog10' + i + '" name="xlog10"/><label for="xlog10' + i + '"></label></div></div></div><div class="min-max"><div><label>Y Minimum</label></div><input type="number" name="ylow" value="0"></div><div class="min-max"><div><label>Y Maximum</label></div><input type="number" name="yhigh" value="1"></div><div class= log10><div><p>Log10</p></div><div class = "checkbox-container"><input type="checkbox" value="0" id="ylog10' + i + '" name="ylog10"/><label for="ylog10' + i + '"></label></div></div><div><button class = "save-coordinates" disabled>Save</button></div></div><table class="example" class="display" width="100%"></table><div class="export"><button class = "csv">CSV</button><button class = "R">R</button></div></div></div>'
+        '<div class="container" id="canvas-' + i + '"><div class="pre-canvas-container" ><div class="canvas-container" ><canvas class = "main-canvas" id="canvas-container-img-' + i + '" style = "display:inline;"  width="' + width + '" height="' + height + '"></canvas><canvas class = "canvas-selected main-canvas" id="canvas-container-selected-' + i + '" style = "display:inline;"  width="' + width + '" height="' + height + '"></canvas><canvas class = "main-canvas" id="canvas-container-' + i + '" style = "display:inline;"  width="' + width + '" height="' + height + '"></canvas><canvas class = "floating-canvas" height = "100" width = "100"></canvas></div></div><div class = "controls"><div class = "mini-canvas-container"><canvas class = "mini-canvas" width = "300" height = "300"></canvas></div> <span class="zoom" id ="zoom' + i + '"> <i class="fa fa-minus"></i></span><span class="zoom2 zoom" id ="zoom2' + i + '"> <i class="fa fa-plus"></i></span><div class = "calibrate-container"><button class = "calibrate" disabled>Calibrate</button></div><div class = "name-input" ><div><label>Name</label></div><input type="text" name="name" value="Line 1"></div><div class = "coordinates"><div class= x-axis><div class="min-max"><div><label>X Minimum</label></div><input type="number" name="xlow" value="0"></div><div class="min-max"><div><label>X Maximum</label></div><input type="number" name="xhigh" value="1"></div><div class= log10><div><p>Log10</p></div><div class = "checkbox-container"><input type="checkbox" value="0" id="xlog10' + i + '" name="xlog10"/><label for="xlog10' + i + '"></label></div></div></div><div class="min-max"><div><label>Y Minimum</label></div><input type="number" name="ylow" value="0"></div><div class="min-max"><div><label>Y Maximum</label></div><input type="number" name="yhigh" value="1"></div><div class= log10><div><p>Log10</p></div><div class = "checkbox-container"><input type="checkbox" value="0" id="ylog10' + i + '" name="ylog10"/><label for="ylog10' + i + '"></label></div></div><div><button class = "save-coordinates" disabled>Save</button></div></div><table class="example" class="display" width="100%"></table><div class="export"><button class = "csv">CSV</button><button class = "R">R</button></div></div></div>'
     )
 }
 
@@ -132,6 +141,7 @@ function addImage() {
                             
                             $('.main-canvas').attr( "height", "0px" )
                             $('.main-canvas').attr( "width", "0px" )
+                            $('.main-canvas').css("margin-left","0px")
                             canvascontaineri.attr( "height", height )
                             canvascontaineri.attr( "width", width )
                             canvascontaineri.prev().attr( "height", height )
@@ -148,7 +158,7 @@ function addImage() {
                         })
 
                         var a = $("#canvas-container-img-" + thisi)[0].getBoundingClientRect().width;
-                        $(".zoom")[0].addEventListener('mousedown', function () {
+                        $("#zoom"+thisi)[0].addEventListener('mousedown', function () {
                             ctx.clearRect(0, 0, a, a * img.height / img.width);
                             a = a * 0.9
                             $("#canvas-container-img-" + thisi)[0].width = a;
@@ -158,10 +168,17 @@ function addImage() {
                             $("#canvas-container-selected-" + thisi)[0].width = a;
                             $("#canvas-container-selected-" + thisi)[0].height = a * img.height / img.width;
                             ctx.drawImage(img, 0, 0, $("#canvas-container-" + thisi)[0].width, $("#canvas-container-" + thisi)[0].height);
+                            
+                            
+                            
+                            //center canvas if its smaller than container
+                            $("#canvas-container-img-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                             $("#canvas-container-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                             $("#canvas-container-selected-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
 
                         })
 
-                        $("#zoom2")[0].addEventListener('mousedown', function () {
+                        $("#zoom2"+thisi)[0].addEventListener('mousedown', function () {
                             ctx.clearRect(0, 0, a, a * img.height / img.width);
                             a = a * 10 / 9
                             $("#canvas-container-img-" + thisi)[0].width = a;
@@ -171,6 +188,13 @@ function addImage() {
                             $("#canvas-container-selected-" + thisi)[0].width = a;
                             $("#canvas-container-selected-" + thisi)[0].height = a * img.height / img.width;
                             ctx.drawImage(img, 0, 0, $("#canvas-container-" + thisi)[0].width, $("#canvas-container-" + thisi)[0].height);
+                            
+                            //center canvas if its smaller than container
+                             $("#canvas-container-img-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                             $("#canvas-container-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                             $("#canvas-container-selected-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                            
+                            
 
                         })
 
@@ -284,7 +308,7 @@ function addDragImage(path) {
                         })
 
                         var a = $("#canvas-container-img-" + thisi)[0].getBoundingClientRect().width;
-                        $(".zoom")[0].addEventListener('mousedown', function () {
+                        $("#zoom"+thisi)[0].addEventListener('mousedown', function () {
                             ctx.clearRect(0, 0, a, a * img.height / img.width);
                             a = a * 0.9
                             $("#canvas-container-img-" + thisi)[0].width = a;
@@ -294,10 +318,15 @@ function addDragImage(path) {
                             $("#canvas-container-selected-" + thisi)[0].width = a;
                             $("#canvas-container-selected-" + thisi)[0].height = a * img.height / img.width;
                             ctx.drawImage(img, 0, 0, $("#canvas-container-" + thisi)[0].width, $("#canvas-container-" + thisi)[0].height);
+                            
+                                                        //center canvas if its smaller than container
+                            $("#canvas-container-img-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                             $("#canvas-container-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                             $("#canvas-container-selected-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
 
                         })
 
-                        $("#zoom2")[0].addEventListener('mousedown', function () {
+                        $("#zoom2"+thisi)[0].addEventListener('mousedown', function () {
                             ctx.clearRect(0, 0, a, a * img.height / img.width);
                             a = a * 10 / 9
                             $("#canvas-container-img-" + thisi)[0].width = a;
@@ -307,6 +336,11 @@ function addDragImage(path) {
                             $("#canvas-container-selected-" + thisi)[0].width = a;
                             $("#canvas-container-selected-" + thisi)[0].height = a * img.height / img.width;
                             ctx.drawImage(img, 0, 0, $("#canvas-container-" + thisi)[0].width, $("#canvas-container-" + thisi)[0].height);
+                            
+                                                        //center canvas if its smaller than container
+                            $("#canvas-container-img-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                             $("#canvas-container-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                             $("#canvas-container-selected-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
 
                         })
 
@@ -399,7 +433,7 @@ function addEmptyImage() {
                         })
 
                         var a = $("#canvas-container-img-" + thisi)[0].getBoundingClientRect().width;
-                        $(".zoom")[0].addEventListener('mousedown', function () {
+                        $("#zoom"+thisi)[0].addEventListener('mousedown', function () {
                             ctx.clearRect(0, 0, a, a * img.height / img.width);
                             a = a * 0.9
                             $("#canvas-container-img-" + thisi)[0].width = a;
@@ -409,10 +443,15 @@ function addEmptyImage() {
                             $("#canvas-container-selected-" + thisi)[0].width = a;
                             $("#canvas-container-selected-" + thisi)[0].height = a * img.height / img.width;
                             ctx.drawImage(img, 0, 0, $("#canvas-container-" + thisi)[0].width, $("#canvas-container-" + thisi)[0].height);
+                            
+                                                        //center canvas if its smaller than container
+                            $("#canvas-container-img-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                             $("#canvas-container-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                             $("#canvas-container-selected-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
 
                         })
 
-                        $("#zoom2")[0].addEventListener('mousedown', function () {
+                        $("#zoom2"+thisi)[0].addEventListener('mousedown', function () {
                             ctx.clearRect(0, 0, a, a * img.height / img.width);
                             a = a * 10 / 9
                             $("#canvas-container-img-" + thisi)[0].width = a;
@@ -422,6 +461,11 @@ function addEmptyImage() {
                             $("#canvas-container-selected-" + thisi)[0].width = a;
                             $("#canvas-container-selected-" + thisi)[0].height = a * img.height / img.width;
                             ctx.drawImage(img, 0, 0, $("#canvas-container-" + thisi)[0].width, $("#canvas-container-" + thisi)[0].height);
+                            
+                                                        //center canvas if its smaller than container
+                            $("#canvas-container-img-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                             $("#canvas-container-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                             $("#canvas-container-selected-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
 
                         })
 

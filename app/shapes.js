@@ -8,7 +8,13 @@ var setNull = obj => setAll(obj, null);
 var colors=["#e6194b","#3cb44b", "#ffe119","#0082c8","#f58231","#911eb4","#46f0f0","#f032e6"]
 
 
+function determineScreenShot(){
 
+    return{
+        width:1366,
+        height:768
+    }
+}
 
 
 function findDistance(x1, y1, x2, y2) {
@@ -163,7 +169,14 @@ function CanvasState(canvas, img) {
     })
 
     
-    $(".zoom").click(function () {
+    $("#zoom"+this.i).click(function () {
+        myState.valid = false
+        myState.draw(img);
+
+
+        
+    })
+    $("#zoom2"+this.i).click(function () {
         myState.valid = false
         myState.draw(img);
     })
@@ -573,7 +586,35 @@ function CanvasState(canvas, img) {
 //    let row = rowArray.join(",");
 //    csvContent += row + "\n"; 
 //    }); 
+    
+
+        
     copyToClipboard(content)
+        
+    const thumbSize = determineScreenShot();
+    let options = {types:['screen'], thumbnailSize:thumbSize}
+    
+    $(".main-container").css("background"," rgba(171, 163, 163, 0)");
+                desktopCapturer.getSources(options, function(error,sources){
+            sources.forEach(function(source){
+                var time;
+                var d = new Date()
+                time = d.getTime()
+                const screenshotPath = path.join(os.tmpdir(),"screenshot"+time+".png");
+                console.log(source.thumbnail)
+                
+                fs.writeFile(screenshotPath,source.thumbnail.crop({x:0,y:112,width:1000,height:600}).toPng(100))
+                 //shell.openExternal("file://"+screenshotPath)
+                setTimeout(function(){
+               addDragImage("file://"+screenshotPath)
+                                console.log("file://"+screenshotPath)
+                },100)
+
+                
+            })
+        })
+            //$(".main-container").css("background"," rgba(171, 163, 163, 0.17)");
+
         
 
 
@@ -881,10 +922,11 @@ CanvasState.prototype.draw = function (img) {
     }
 
     if (!this.floatingCanvasValid) {
+        
 
         $('#' + this.id).parent().parent().parent().find('.floating-canvas').css({
             top: this.currenty - 51,
-            left: this.currentx - 51
+            left: this.currentx - 50 + (1000-Math.min(1000, this.width))/2 //adjust if less tahn 1000px
         });
 
 
