@@ -615,6 +615,9 @@ function CanvasState(canvas, img) {
         let options = {types:['screen'], thumbnailSize:thumbSize}
 
         $(".main-container").css("background"," rgba(171, 163, 163, 0)");
+        $('.screen-cap-button').hide()
+        $('.floating-canvas').hide()
+
         setTimeout(function(){    // need small delay for css to udpate
             desktopCapturer.getSources(options, function(error,sources){
         sources.forEach(function(source){
@@ -635,6 +638,10 @@ function CanvasState(canvas, img) {
         })
         })
         $(".main-container").css("background"," rgba(171, 163, 163, 0.17)");
+        $('.screen-cap-button').show()
+        $('.floating-canvas').show()
+
+
 
         },100)
     })
