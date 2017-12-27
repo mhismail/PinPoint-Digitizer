@@ -16,7 +16,7 @@ const store = new Store();
 
 var shell = require('electron').shell;
 const {desktopCapturer} = electron;
-const {electronScreen} = electron;
+const electronScreen = electron.screen;
 const os = require('os')
 const path = require('path')
 
@@ -411,6 +411,10 @@ function addEmptyImage() {
                         canvascontaineri.prev().prev().attr( "width", width )
                         var ctx = document.getElementById("canvas-container-img-" + thisi).getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
+
+                        //insert button to capture screen shot
+                        canvascontaineri.parent().before('<div class="screen-cap-button" > <i class="fa fa-camera"></i></div>')
+
                         init('canvas-container-' + thisi, img);
                         iconEl.click(function () {
                             $('.container').hide();
@@ -478,6 +482,7 @@ function addEmptyImage() {
                         settingsEl.addEventListener('click', addImageListener)
                         newimage = true;
                         addI();
+                                                
 
 
                     }, false);

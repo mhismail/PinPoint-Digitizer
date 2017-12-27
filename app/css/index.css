@@ -181,7 +181,7 @@ canvas{
     display:none;
 }
 
-.settings, .zoom{
+.settings, .zoom, .screen-cap-button {
     width: 30px;
     height: 30px;
     position: relative;
@@ -189,7 +189,7 @@ canvas{
     margin-left: 0px;
 }
 
-.settings {
+.settings, .screen-cap-button {
     width: 37px;
     height: 36px;
     background: linear-gradient(#cecece,white);
@@ -197,7 +197,7 @@ canvas{
     border: 1px solid #b5b5b5;
 }
 
-.settings:hover {
+.settings:hover, screen-cap-button:hover {
     background: linear-gradient(#ffffff,#e4e4e4);
 }
 
@@ -252,13 +252,13 @@ span#icon2 {}
 
 
 
-.settings i, .zoom i{
+.settings i, .zoom i, .screen-cap-button i{
     color: #0c1010;
     font-size: 25px;
     line-height: 38px;
 }
 
-.settings-container i:hover {
+.settings-container i:hover, .screen-cap-button i:hover {
     color: #00c300;
     cursor: pointer;
 }

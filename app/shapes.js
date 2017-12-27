@@ -11,8 +11,9 @@ var colors=["#e6194b","#3cb44b", "#ffe119","#0082c8","#f58231","#911eb4","#46f0f
 function determineScreenShot(){
 
     return{
-        width:1366,
-        height:768
+        width:window.screen.width,
+        height:window.screen.height
+
     }
 }
 
@@ -590,30 +591,8 @@ function CanvasState(canvas, img) {
 
         
     copyToClipboard(content)
-        
-    const thumbSize = determineScreenShot();
-    let options = {types:['screen'], thumbnailSize:thumbSize}
-    
-    $(".main-container").css("background"," rgba(171, 163, 163, 0)");
-                desktopCapturer.getSources(options, function(error,sources){
-            sources.forEach(function(source){
-                var time;
-                var d = new Date()
-                time = d.getTime()
-                const screenshotPath = path.join(os.tmpdir(),"screenshot"+time+".png");
-                console.log(source.thumbnail)
-                
-                fs.writeFile(screenshotPath,source.thumbnail.crop({x:0,y:112,width:1000,height:600}).toPng(100))
-                 //shell.openExternal("file://"+screenshotPath)
-                setTimeout(function(){
-               addDragImage("file://"+screenshotPath)
-                                console.log("file://"+screenshotPath)
-                },100)
 
-                
-            })
-        })
-            //$(".main-container").css("background"," rgba(171, 163, 163, 0.17)");
+
 
         
 
@@ -625,8 +604,45 @@ function CanvasState(canvas, img) {
     myState.valid = false
     myState.draw(img)
     });
+    
+    
+    $('#' + myState.id).parent().parent().parent().find('.screen-cap-button').mousedown( function () {
+        var windowPos = remote.getCurrentWindow().getPosition();
+
+
+
+        const thumbSize = determineScreenShot();
+        let options = {types:['screen'], thumbnailSize:thumbSize}
+
+        $(".main-container").css("background"," rgba(171, 163, 163, 0)");
+        setTimeout(function(){    // need small delay for css to udpate
+            desktopCapturer.getSources(options, function(error,sources){
+        sources.forEach(function(source){
+            var time;
+            var d = new Date()
+            time = d.getTime()
+            const screenshotPath = path.join(os.tmpdir(),"screenshot"+time+".png");
+            console.log(source.thumbnail)
+
+            fs.writeFile(screenshotPath,source.thumbnail.crop({x:windowPos[0],y:windowPos[1]+112,width:1000,height:600}).toPng(100))
+             //shell.openExternal("file://"+screenshotPath)
+            setTimeout(function(){
+           addDragImage("file://"+screenshotPath)
+                            console.log("file://"+screenshotPath)
+            },100)
+
+
+        })
+        })
+        $(".main-container").css("background"," rgba(171, 163, 163, 0.17)");
+
+        },100)
+    })
+
 
 }
+
+
 
 
 
@@ -984,10 +1000,7 @@ CanvasState.prototype.draw = function (img) {
 // Creates an object with x and y defined, set to the mouse position relative to the state's canvas
 CanvasState.prototype.getMouse = function (e) {
 
-    var element = this.canvas,
-        offsetX = 0,
-        offsetY = 0,
-        mx, my;
+    var mx, my;
 
 
     mx = e.originalEvent.layerX
