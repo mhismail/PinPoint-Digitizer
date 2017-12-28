@@ -966,11 +966,6 @@ CanvasState.prototype.draw = function (img) {
         }
         miniCtx.clearRect(0, 0, 100, 100);
 
-//        miniCtx.drawImage(imageCanvas, 50 * 1 / scale - this.currentx, 50 * 1 / scale - this.currenty);
-//        if(!this.shifted){
-//        miniCtx.drawImage(this.canvas, 50 * 1 / scale - this.currentx, 50 * 1 / scale - this.currenty);
-//        
-//        miniCtx.drawImage(selectedCanvas, 50 * 1 / scale - this.currentx, 50 * 1 / scale - this.currenty);
 //        }
         
         //draw cross hairs on floating canvas
