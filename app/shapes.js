@@ -199,12 +199,6 @@ function CanvasState(canvas, img) {
         if (e.which === 1) {
             var mouse = myState.getMouse(e);
             myState.addPoint(mouse.x / this.width, mouse.y / this.height)
-            console.log(mouse.x )
-            console.log(this.width) 
-            console.log(mouse.x / this.width)
-            console.log(mouse.y )
-            console.log(this.height) 
-            console.log(mouse.y / this.height)
             myState.valid = false;
             myState.nearestPoint = null;
             myState.nearestPointIndex = null;
@@ -1004,9 +998,11 @@ CanvasState.prototype.getMouse = function (e) {
 
     var mx, my;
 
+    mx = e.clientX - $('#' + this.id).offset().left
+    my = e.clientY - $('#' + this.id).offset().top
 
-    mx = e.originalEvent.layerX
-    my = e.originalEvent.layerY
+   // mx = e.originalEvent.layerX
+    //my = e.originalEvent.layerY
     
 
 
