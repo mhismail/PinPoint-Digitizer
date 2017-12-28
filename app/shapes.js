@@ -8,6 +8,10 @@ var setNull = obj => setAll(obj, null);
 var colors=["#e6194b","#3cb44b", "#ffe119","#0082c8","#f58231","#911eb4","#46f0f0","#f032e6"]
 
 
+$('body').css('min-width', window.screen.width + 'px');
+
+
+
 function determineScreenShot(){
 
     return{
@@ -602,7 +606,7 @@ function CanvasState(canvas, img) {
     
     $('#' + myState.id).parent().parent().parent().find('.screen-cap-button').mousedown( function () {
         var windowPos = remote.getCurrentWindow().getPosition();
-
+console.log(windowPos)
 
 
         const thumbSize = determineScreenShot();
@@ -620,8 +624,12 @@ function CanvasState(canvas, img) {
             time = d.getTime()
             const screenshotPath = path.join(os.tmpdir(),"screenshot"+time+".png");
             console.log(source.thumbnail)
+            
+            var captureWidth = $(".active-canvas ").width()
+            var captureHeight = $(".active-canvas ").parent().parent().height()
 
-            fs.writeFile(screenshotPath,source.thumbnail.crop({x:windowPos[0],y:windowPos[1]+112,width:1000,height:600}).toPng(100))
+            console.log(captureWidth)
+            fs.writeFile(screenshotPath,source.thumbnail.crop({x:windowPos[0],y:windowPos[1]+112,width: captureWidth ,height:captureHeight}).toPng(100))
              //shell.openExternal("file://"+screenshotPath)
             setTimeout(function(){
            addDragImage("file://"+screenshotPath)
@@ -943,7 +951,7 @@ CanvasState.prototype.draw = function (img) {
 
         $('#' + this.id).parent().parent().parent().find('.floating-canvas').css({
             top: this.currenty - 51,
-            left: this.currentx - 50 + (1000-Math.min(1000, this.width))/2 //adjust if less tahn 1000px
+            left: this.currentx - 50 + (Math.max(0,window.screen.width*0.75-this.width))/2 //adjust if less tahn 1000px
         });
 
 

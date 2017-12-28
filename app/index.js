@@ -105,8 +105,8 @@ function addImage() {
                         $(".container").hide(); //hide all canvas
                         $('.image-icon').removeClass("image-icon-selected")
                         
-                        var height = 1000 * img.height / img.width;
-                        var width = 1000;
+                        var width = Math.floor(window.screen.width*0.75);
+                        var height = width * img.height / img.width;
                         $(".canvas-holder").prepend(canvasContainer(thisi, width, height));
 
                         var iconHolderWidth = 60 * img.width / img.height;
@@ -172,9 +172,9 @@ function addImage() {
                             
                             
                             //center canvas if its smaller than container
-                            $("#canvas-container-img-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
-                             $("#canvas-container-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
-                             $("#canvas-container-selected-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                            $("#canvas-container-img-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
+                             $("#canvas-container-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
+                             $("#canvas-container-selected-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
 
                         })
 
@@ -190,9 +190,9 @@ function addImage() {
                             ctx.drawImage(img, 0, 0, $("#canvas-container-" + thisi)[0].width, $("#canvas-container-" + thisi)[0].height);
                             
                             //center canvas if its smaller than container
-                             $("#canvas-container-img-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
-                             $("#canvas-container-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
-                             $("#canvas-container-selected-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                             $("#canvas-container-img-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
+                             $("#canvas-container-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
+                             $("#canvas-container-selected-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
                             
                             
 
@@ -261,8 +261,9 @@ function addDragImage(path) {
                         var thisi = i;
                         $(".container").hide(); //hide all canvas
                         $('.image-icon').removeClass("image-icon-selected")
-                        var height = 1000 * img.height / img.width;
-                        var width = 1000;
+                        
+                        var width = Math.floor(window.screen.width*0.75);
+                        var height = width * img.height / img.width;
                         $(".canvas-holder").prepend(canvasContainer(thisi, width, height));
 
                         var iconHolderWidth = 60 * img.width / img.height;
@@ -320,9 +321,9 @@ function addDragImage(path) {
                             ctx.drawImage(img, 0, 0, $("#canvas-container-" + thisi)[0].width, $("#canvas-container-" + thisi)[0].height);
                             
                                                         //center canvas if its smaller than container
-                            $("#canvas-container-img-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
-                             $("#canvas-container-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
-                             $("#canvas-container-selected-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                            $("#canvas-container-img-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
+                             $("#canvas-container-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
+                             $("#canvas-container-selected-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
 
                         })
 
@@ -338,9 +339,9 @@ function addDragImage(path) {
                             ctx.drawImage(img, 0, 0, $("#canvas-container-" + thisi)[0].width, $("#canvas-container-" + thisi)[0].height);
                             
                                                         //center canvas if its smaller than container
-                            $("#canvas-container-img-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
-                             $("#canvas-container-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
-                             $("#canvas-container-selected-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                            $("#canvas-container-img-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
+                             $("#canvas-container-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
+                             $("#canvas-container-selected-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
 
                         })
 
@@ -386,8 +387,9 @@ function addEmptyImage() {
                         var thisi = i;
                         $(".container").hide(); //hide all canvas
                         $('.image-icon').removeClass("image-icon-selected")
-                        var height = 1000 * img.height / img.width;
-                        var width = 1000;
+                        
+                        var width = Math.floor(window.screen.width*0.75);
+                        var height = width * img.height / img.width;
                         $(".canvas-holder").prepend(canvasContainer(thisi, width, height));
 
                         var iconHolderWidth = 60 * img.width / img.height;
@@ -449,9 +451,9 @@ function addEmptyImage() {
                             ctx.drawImage(img, 0, 0, $("#canvas-container-" + thisi)[0].width, $("#canvas-container-" + thisi)[0].height);
                             
                                                         //center canvas if its smaller than container
-                            $("#canvas-container-img-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
-                             $("#canvas-container-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
-                             $("#canvas-container-selected-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                            $("#canvas-container-img-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
+                             $("#canvas-container-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
+                             $("#canvas-container-selected-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
 
                         })
 
@@ -467,9 +469,9 @@ function addEmptyImage() {
                             ctx.drawImage(img, 0, 0, $("#canvas-container-" + thisi)[0].width, $("#canvas-container-" + thisi)[0].height);
                             
                                                         //center canvas if its smaller than container
-                            $("#canvas-container-img-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
-                             $("#canvas-container-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
-                             $("#canvas-container-selected-" + thisi).css("margin-left",(1000-Math.min(1000,a))/2)
+                            $("#canvas-container-img-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
+                             $("#canvas-container-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
+                             $("#canvas-container-selected-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
 
                         })
 
