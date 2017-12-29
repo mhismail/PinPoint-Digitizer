@@ -611,13 +611,13 @@ console.log(windowPos)
             var time;
             var d = new Date()
             time = d.getTime()
-            const screenshotPath = path.join(os.tmpdir(),"screenshot"+time+".png");
+            const screenshotPath = path.join(os.tmpdir(),"screenshot"+time+"@2x.png");
             console.log(source.thumbnail)
             
             var captureWidth = $(".active-canvas ").width()
             var captureHeight = $(".active-canvas ").parent().parent().height()
 
-            console.log(captureWidth)
+            console.log(screenshotPath)
             fs.writeFile(screenshotPath,source.thumbnail.crop({x:windowPos[0],y:windowPos[1]+112,width: captureWidth ,height:captureHeight}).toPng(100))
              //shell.openExternal("file://"+screenshotPath)
             setTimeout(function(){
@@ -940,7 +940,7 @@ CanvasState.prototype.draw = function (img) {
 
         $('#' + this.id).parent().parent().parent().find('.floating-canvas').css({
             top: this.currenty - 51,
-            left: this.currentx - 51 + (Math.max(0,window.screen.width*0.75-this.width))/2 //adjust if less tahn 1000px
+            left: this.currentx - 51// + Math.floor((Math.max(0,window.screen.width*0.75-this.width))/2) //adjust if less tahn 1000px
         });
 
 

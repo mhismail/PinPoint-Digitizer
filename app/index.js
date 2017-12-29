@@ -118,8 +118,11 @@ function addDragImage(path) {
             $('.image-icon').removeClass("image-icon-selected")
             $(this).addClass("image-icon-selected")
 
+            //set all canvas widths to 0 except the active canvasses
             $('.main-canvas').attr( "height", "0px" )
             $('.main-canvas').attr( "width", "0px" )
+            
+            //reset active canvasses to full size
             canvascontaineri.attr( "height", height )
             canvascontaineri.attr( "width", width )
             canvascontaineri.prev().attr( "height", height )
@@ -127,9 +130,14 @@ function addDragImage(path) {
             canvascontaineri.prev().prev().attr( "height", height )
             canvascontaineri.prev().prev().attr( "width", width )
             var ctx = document.getElementById("canvas-container-img-" + thisi).getContext('2d');
-            ctx.drawImage(img, 0, 0, width, height);                     
-        })
+            ctx.drawImage(img, 0, 0, width, height);    
+            
+            $("#canvas-" + thisi).find(".canvas-container").css("margin-left",0)
 
+             a = $("#canvas-container-img-" + thisi)[0].getBoundingClientRect().width; // reset zoom scale
+
+        })
+ 
         var a = $("#canvas-container-img-" + thisi)[0].getBoundingClientRect().width;
         $("#zoom"+thisi)[0].addEventListener('mousedown', function () {
             ctx.clearRect(0, 0, a, a * img.height / img.width);
@@ -143,10 +151,8 @@ function addDragImage(path) {
             ctx.drawImage(img, 0, 0, $("#canvas-container-" + thisi)[0].width, $("#canvas-container-" + thisi)[0].height);
 
                                         //center canvas if its smaller than container
-            $("#canvas-container-img-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
-             $("#canvas-container-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
-             $("#canvas-container-selected-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
-
+            $("#canvas-" + thisi).find(".canvas-container").css("margin-left",Math.floor(Math.max(0,Math.floor(window.screen.width*0.75)-a)/2))
+            
         })
 
         $("#zoom2"+thisi)[0].addEventListener('mousedown', function () {
@@ -161,9 +167,7 @@ function addDragImage(path) {
             ctx.drawImage(img, 0, 0, $("#canvas-container-" + thisi)[0].width, $("#canvas-container-" + thisi)[0].height);
 
                                         //center canvas if its smaller than container
-            $("#canvas-container-img-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
-             $("#canvas-container-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
-             $("#canvas-container-selected-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
+            $("#canvas-" + thisi).find(".canvas-container").css("margin-left",Math.floor(Math.max(0,Math.floor(window.screen.width*0.75)-a)/2))
 
         })
 
