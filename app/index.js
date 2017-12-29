@@ -69,7 +69,7 @@ function addImageListener() {
 }
 
 function addEmptyImageListener() {
-    addEmptyImage();
+    addDragImage("./images/empty.png");
 }
 
 function addI() {
@@ -287,6 +287,11 @@ function addDragImage(path) {
                         canvascontaineri.prev().prev().attr( "width", width )
                         var ctx = document.getElementById("canvas-container-img-" + thisi).getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
+                        
+                        //insert button to capture screen shot
+                        if (img.width == 1){
+                            canvascontaineri.parent().before('<div class="screen-cap-button" > <i class="fa fa-camera"></i></div>')
+                        }
                         init('canvas-container-' + thisi, img);
                         iconEl.click(function () {
                             $('.container').hide();
@@ -372,134 +377,4 @@ function addDragImage(path) {
     }
 }
 
-function addEmptyImage() {
-    var filesa = ["./images/empty.png"]
-    var j = 0;
-    var newimage = true;
-    if (filesa !== undefined) {
-        var isnewimage = setInterval(function () {
-            if (newimage) {
-                newimage = false;
-                var files = filesa[j]
-                if (filesa[j] !== undefined) {
-                    var img = new Image(); // Create new img element
-                    img.addEventListener('load', function () {
-                        var thisi = i;
-                        $(".container").hide(); //hide all canvas
-                        $('.image-icon').removeClass("image-icon-selected")
-                        
-                        var width = Math.floor(window.screen.width*0.75);
-                        var height = width * img.height / img.width;
-                        $(".canvas-holder").prepend(canvasContainer(thisi, width, height));
-
-                        var iconHolderWidth = 60 * img.width / img.height;
-                        //create new icon in icon bar
-                        $(".settings-container").after(iconSpan(thisi, files, iconHolderWidth));
-                        //add event listeners
-                        var iconEl = $('#icon' + thisi);
-                        iconEl.addClass("image-icon-selected")
-                        var canvasi = $('#canvas-' + thisi);
-                        var canvascontaineri = $('#canvas-container-' + thisi);
-                        $('canvas').removeClass("active-canvas");
-                        $('.main-canvas').attr( "height", "0px" )
-                        $('.main-canvas').attr( "width", "0px" )
-
-                        canvascontaineri.addClass("active-canvas");
-                        canvascontaineri.attr( "height", height )
-                        canvascontaineri.attr( "width", width )
-                        canvascontaineri.prev().attr( "height", height )
-                        canvascontaineri.prev().attr( "width", width )
-                        canvascontaineri.prev().prev().attr( "height", height )
-                        canvascontaineri.prev().prev().attr( "width", width )
-                        var ctx = document.getElementById("canvas-container-img-" + thisi).getContext('2d');
-                        ctx.drawImage(img, 0, 0, width, height);
-
-                        //insert button to capture screen shot
-                        canvascontaineri.parent().before('<div class="screen-cap-button" > <i class="fa fa-camera"></i></div>')
-
-                        init('canvas-container-' + thisi, img);
-                        iconEl.click(function () {
-                            $('.container').hide();
-                            $('canvas').removeClass("active-canvas");
-                            canvasi.show();
-                            canvascontaineri.addClass("active-canvas");
-                            $('.image-icon').removeClass("image-icon-selected")
-                            $(this).addClass("image-icon-selected")
-                            
-                            $('.main-canvas').attr( "height", "0px" )
-                            $('.main-canvas').attr( "width", "0px" )
-                            canvascontaineri.attr( "height", height )
-                            canvascontaineri.attr( "width", width )
-                            canvascontaineri.prev().attr( "height", height )
-                            canvascontaineri.prev().attr( "width", width )
-                            canvascontaineri.prev().prev().attr( "height", height )
-                            canvascontaineri.prev().prev().attr( "width", width )
-                            var ctx = document.getElementById("canvas-container-img-" + thisi).getContext('2d');
-                            ctx.drawImage(img, 0, 0, width, height);                     
-                        })
-
-                        var a = $("#canvas-container-img-" + thisi)[0].getBoundingClientRect().width;
-                        $("#zoom"+thisi)[0].addEventListener('mousedown', function () {
-                            ctx.clearRect(0, 0, a, a * img.height / img.width);
-                            a = a * 0.9
-                            $("#canvas-container-img-" + thisi)[0].width = a;
-                            $("#canvas-container-img-" + thisi)[0].height = a * img.height / img.width;
-                            $("#canvas-container-" + thisi)[0].width = a;
-                            $("#canvas-container-" + thisi)[0].height = a * img.height / img.width;
-                            $("#canvas-container-selected-" + thisi)[0].width = a;
-                            $("#canvas-container-selected-" + thisi)[0].height = a * img.height / img.width;
-                            ctx.drawImage(img, 0, 0, $("#canvas-container-" + thisi)[0].width, $("#canvas-container-" + thisi)[0].height);
-                            
-                                                        //center canvas if its smaller than container
-                            $("#canvas-container-img-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
-                             $("#canvas-container-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
-                             $("#canvas-container-selected-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
-
-                        })
-
-                        $("#zoom2"+thisi)[0].addEventListener('mousedown', function () {
-                            ctx.clearRect(0, 0, a, a * img.height / img.width);
-                            a = a * 10 / 9
-                            $("#canvas-container-img-" + thisi)[0].width = a;
-                            $("#canvas-container-img-" + thisi)[0].height = a * img.height / img.width;
-                            $("#canvas-container-" + thisi)[0].width = a;
-                            $("#canvas-container-" + thisi)[0].height = a * img.height / img.width;
-                            $("#canvas-container-selected-" + thisi)[0].width = a;
-                            $("#canvas-container-selected-" + thisi)[0].height = a * img.height / img.width;
-                            ctx.drawImage(img, 0, 0, $("#canvas-container-" + thisi)[0].width, $("#canvas-container-" + thisi)[0].height);
-                            
-                                                        //center canvas if its smaller than container
-                            $("#canvas-container-img-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
-                             $("#canvas-container-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
-                             $("#canvas-container-selected-" + thisi).css("margin-left",(Math.max(0,Math.floor(window.screen.width*0.75)-a))/2)
-
-                        })
-
-                        var closei = $("#close" + thisi);
-                        closei.click(function () {
-                            $(this).parent().remove();
-                            canvasi.remove();
-                        });
-
-                        settingsEl.addEventListener('click', addImageListener)
-                        newimage = true;
-                        addI();
-                                                
-
-
-                    }, false);
-                    img.src = files;
-                    j++;
-
-                    if (j == filesa.length) {
-                        clearInterval(isnewimage)
-                        
-                    };
-                }
-            }
-        })
-    } else {
-        empty.addEventListener('click', addEmptyImageListener)
-    }
-}
 
