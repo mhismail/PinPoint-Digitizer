@@ -401,15 +401,7 @@ function CanvasState(canvas, img) {
 
                                                 myState.floatingCanvasValid = false;
                                                 myState.draw(img);}} );
-//    
-//    $("#"+this.id).parent().parent().parent().mouseenter(function(){
-//        console.log("boogity")
-//                                myState.miniCanvasValid = false;
-//                        myState.floatingCanvasValid = false;
-//        myState.valid = false;
-//        myState.draw(img)
-//
-//    })
+
 
 
 
@@ -581,10 +573,7 @@ function CanvasState(canvas, img) {
     var PointData = "),\nPoint= c("+ table.DataTable().columns(3).data().toArray();
     var content = XData+YData+LineData+PointData+"))"
 
-//    data.forEach(function(rowArray){
-//    let row = rowArray.join(",");
-//    csvContent += row + "\n"; 
-//    }); 
+
     
 
         
@@ -951,7 +940,7 @@ CanvasState.prototype.draw = function (img) {
 
         $('#' + this.id).parent().parent().parent().find('.floating-canvas').css({
             top: this.currenty - 51,
-            left: this.currentx - 50 + (Math.max(0,window.screen.width*0.75-this.width))/2 //adjust if less tahn 1000px
+            left: this.currentx - 51 + (Math.max(0,window.screen.width*0.75-this.width))/2 //adjust if less tahn 1000px
         });
 
 
