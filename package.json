@@ -6,19 +6,26 @@
   "description": "Digitize your data",
   "author": "Mohamed Ismail <mismail1993@gmail.com>",
   "homepage": "https://github.com/mhismail/PinPoint",
-  "repositoy":"https://github.com/mhismail/PinPoint",
-  "keywords":["pinpoint","digitizer","extract","data"],
+  "repositoy": "https://github.com/mhismail/PinPoint",
+  "keywords": [
+    "pinpoint",
+    "digitizer",
+    "extract",
+    "data"
+  ],
   "main": "main.js",
   "scripts": {
     "postinstall": "install-app-deps",
     "start": " electron main.js",
     "package": "build --dir",
-    "dist": "build"
+    "dist": "build -wl --x64 --ia32"
   },
   "build": {
     "appId": "PinPoint",
     "mac": {
-      "category": "public.app.category.productivity"
+      "category": "public.app.category.productivity",
+      "target": "zip",
+      "icon": "images/pinpoint_logo_ico.ico"
     },
     "dmg": {
       "contents": [
@@ -35,10 +42,8 @@
       ]
     },
     "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ]
+      "target": "zip",
+      "icon": "images/pinpoint_logo_ico.ico"
     },
     "win": {
       "target": "zip",
@@ -47,11 +52,10 @@
   },
   "devDependencies": {
     "asar": "^0.13.0",
-    "electron-builder": "^19.49.0",
+    "electron": "^1.7.9",
+    "electron-builder": "^19.50.0",
     "electron-installer-debian": "^0.5.2",
     "electron-packager": "^9.1.0",
-    "electron": "^1.7.9",
-
     "electron-prebuilt": "^1.4.13"
   },
   "dependencies": {
