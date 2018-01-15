@@ -622,15 +622,15 @@ console.log(windowPos)
              //shell.openExternal("file://"+screenshotPath)
             setTimeout(function(){
            addDragImage("file://"+screenshotPath)
-                            console.log("file://"+screenshotPath)
+                        $(".main-container").css("background"," rgba(171, 163, 163, 0.17)");
+        $('.screen-cap-button').show()
+        $('.floating-canvas').show()
             },100)
 
 
         })
         })
-        $(".main-container").css("background"," rgba(171, 163, 163, 0.17)");
-        $('.screen-cap-button').show()
-        $('.floating-canvas').show()
+
 
 
 

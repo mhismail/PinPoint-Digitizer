@@ -204,14 +204,14 @@ canvas{
 .zoom{
     position: absolute;
     top: 0;
-    left:0;   
+    left:20;   
 }
 
 
 .zoom2{
     position: absolute;
-    top: 6%;
-    left:0;  
+    top: 4%;
+    left:20;  
 }
 
 
@@ -265,6 +265,11 @@ span#icon2 {}
 
 i.fa.fa-minus:hover {
     color: #ea0909;
+    cursor: pointer;
+}
+
+i.fa.fa-plus:hover {
+    color: #23ea09;
     cursor: pointer;
 }
 

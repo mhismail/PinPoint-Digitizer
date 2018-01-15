@@ -42,8 +42,7 @@
       ]
     },
     "linux": {
-      "target": "zip",
-      "icon": "images/pinpoint_logo_ico.ico"
+      "target": "zip"
     },
     "win": {
       "target": "zip",
@@ -52,11 +51,11 @@
   },
   "devDependencies": {
     "asar": "^0.13.0",
-    "electron": "^1.7.9",
-    "electron-builder": "^19.50.0",
-    "electron-installer-debian": "^0.5.2",
+    "electron": "^1.7.10",
+    "electron-builder": "^19.52.1",
     "electron-packager": "^9.1.0",
-    "electron-prebuilt": "^1.4.13"
+    "electron-prebuilt": "^1.4.13",
+    "node": "^9.4.0"
   },
   "dependencies": {
     "datatables.net": "^1.10.16",
