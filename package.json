@@ -42,11 +42,15 @@
       ]
     },
     "linux": {
-      "target": "zip"
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+        "icon": "icons/"
     },
     "win": {
-      "target": "zip",
-      "icon": "images/pinpoint_logo_ico.ico"
+      "target": "nsis",
+      "icon": "build/icon.ico"
     }
   },
   "devDependencies": {

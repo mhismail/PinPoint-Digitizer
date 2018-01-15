@@ -567,10 +567,10 @@ function CanvasState(canvas, img) {
     console.log(lineDataNoQuotes.join('-'))
 
     let csvContent = "";
-    var XData = "data.frame(X = c("+ table.DataTable().columns(0).data().toArray();
-    var YData = "),\nY = c("+ table.DataTable().columns(1).data().toArray();
+    var XData = "data.frame(X = c("+ table.DataTable().column(0).data().toArray().join(',');
+    var YData = "),\nY = c("+ table.DataTable().column(1).data().toArray().join(',');
     var LineData = "),\nName = c("+"'"+lineDataNoQuotes.join("','")+"'";
-    var PointData = "),\nPoint= c("+ table.DataTable().columns(3).data().toArray();
+    var PointData = "),\nPoint= c("+ table.DataTable().column(3).data().toArray().join(',');
     var content = XData+YData+LineData+PointData+"))"
 
 

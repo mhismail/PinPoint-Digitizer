@@ -74,3 +74,6 @@ node_modules/*
 # Font awesome library
 
 app/font-awesome-4.7.0/*
+
+# Dist files
+dist/*

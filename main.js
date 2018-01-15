@@ -6,11 +6,15 @@ const {BrowserWindow} = electron;
 const {globalShortcut} = electron;
 const {ipcRenderer} = electron;
 const {webContents} = electron;
+var path = require('path')
 
 
 var mainWindow = null;
 app.commandLine.appendSwitch('--disable-http-cache');
-app.disableHardwareAcceleration()
+
+if (process.platform=="darwin"){
+    app.disableHardwareAcceleration()
+}
 
 app.on('ready', function() {
      protocol.unregisterProtocol('', () => {
@@ -19,7 +23,8 @@ app.on('ready', function() {
         height: 500,
         //resizable: false,
         width: 500,
-        transparent:true
+        transparent:true,
+        icon: path.join(__dirname, 'images/512x512.png')
     });
     mainWindow.loadURL('file://' + __dirname + '/index.html');
     mainWindow.maximize()
