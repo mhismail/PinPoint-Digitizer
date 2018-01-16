@@ -18,3 +18,8 @@ https://mhismail.gitbooks.io/pinpoint-digitizer-user-manual/
 ## Demo 
 
 ![Plot capture demo](images/PinPoint-demo.gif)
+
+## Installation 
+
+Windows: https://github.com/mhismail/PinPoint/releases/download/pinpointv0.1.0/PinPoint.Setup.0.1.0.exe
+Download and run installer
