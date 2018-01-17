@@ -21,5 +21,14 @@ https://mhismail.gitbooks.io/pinpoint-digitizer-user-manual/
 
 ## Installation 
 
-Windows: https://github.com/mhismail/PinPoint/releases/download/pinpointv0.1.0/PinPoint.Setup.0.1.0.exe
+### Windows
+https://github.com/mhismail/PinPoint/releases/download/pinpointv0.1.0/PinPoint.Setup.0.1.0.exe
+
 Download and run installer
+
+### Linux
+https://github.com/mhismail/PinPoint/releases/download/pinpointv0.1.0/PinPoint_0.1.0_amd64.2.deb
+
+Download installer, navigate to downloads in terminal and run:
+`sudo dpkg -i PinPoint_0.1.0_amd64.2.deb`
+
