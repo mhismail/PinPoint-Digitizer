@@ -15,9 +15,6 @@ https://mhismail.gitbooks.io/pinpoint-digitizer-user-manual/
  - Capture data from facetted/multiple plots in same image 
  - Handles skewed/distorted axes
  
-## Demo 
-
-![Plot capture demo](images/PinPoint-demo.gif)
 
 ## Installation 
 
@@ -32,3 +29,22 @@ https://github.com/mhismail/PinPoint/releases/download/pinpointv0.1.0/PinPoint_0
 Download installer, navigate to downloads in terminal and run:
 `sudo dpkg -i PinPoint_0.1.0_amd64.2.deb`
 
+## Demo 
+
+### Load in multiple images
+![Load images](images/pinpoint-load-images.gif)
+
+### Calibrate axes
+![Calibrate axes](images/pinpoint-calibrate-axes.gif)
+
+### Capture points
+![Calibrate axes](images/pinpoint-capture-points.gif)
+
+### Screen capture
+![Calibrate axes](images/pinpoint-screen-capture.gif)
+
+### Change preferences 
+![Calibrate axes](images/pinpoint-change-preferences.gif)
+
+### Export data
+![Calibrate axes](images/pinpoint-export-data.gif)
