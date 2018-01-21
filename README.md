@@ -55,5 +55,7 @@ Download installer, navigate to downloads in terminal and run:
 
 *Plots shown do not belong to me and are used only for demonstration purposes
 
+<a href = "https://github.com/mhismail/PinPoint#installation"> How to Install </a>
+
 ## Credits
 Logo made with Logomakr.com
