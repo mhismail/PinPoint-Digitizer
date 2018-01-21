@@ -54,3 +54,6 @@ Download installer, navigate to downloads in terminal and run:
 ![Calibrate axes](images/pinpoint-export-data.gif)
 
 *Plots shown do not belong to me and are used only for demonstration purposes
+
+## Credits
+Logo made with Logomakr.com
