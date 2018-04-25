@@ -11,8 +11,6 @@ const {BrowserWindow} = electron;
 window.$ = window.jquery = require('jquery');
 var dt = require('datatables.net')();
 require("jquery-ui")
-const Store = require('electron-store');
-const store = new Store();
 
 var shell = require('electron').shell;
 const {desktopCapturer} = electron;

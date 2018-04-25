@@ -6,7 +6,7 @@
   "description": "Digitize your data",
   "author": "Mohamed Ismail <mismail1993@gmail.com>",
   "homepage": "https://github.com/mhismail/PinPoint",
-  "repositoy": "https://github.com/mhismail/PinPoint",
+  "repository": "https://github.com/mhismail/PinPoint",
   "keywords": [
     "pinpoint",
     "digitizer",
@@ -16,7 +16,7 @@
   "main": "main.js",
   "scripts": {
     "postinstall": "install-app-deps",
-    "start": " electron main.js",
+    "start": "electron main.js",
     "package": "build --dir",
     "dist": "build -wl --x64 --ia32"
   },
@@ -54,19 +54,13 @@
     }
   },
   "devDependencies": {
-    "asar": "^0.13.0",
     "electron": "^1.8.2-beta5",
-    "electron-builder": "^19.52.1",
-    "electron-packager": "^9.1.0",
-    "electron-prebuilt": "^1.4.13",
-    "node": "^9.4.0"
+    "electron-builder": "^19.52.1"
   },
   "dependencies": {
     "datatables.net": "^1.10.16",
     "datatables.net-dt": "^1.10.16",
-    "electron-store": "^1.3.0",
     "jquery": "^3.2.1",
-    "jquery-ui": "^1.12.1",
-    "npm": "^5.4.2"
+    "jquery-ui": "^1.12.1"
   }
 }

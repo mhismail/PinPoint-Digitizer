@@ -25,7 +25,7 @@ app.on('ready', function() {
     });
     mainWindow.loadURL('file://' + __dirname + '/index.html');
     mainWindow.maximize()
-	},100)
+	},500)
 
 
 });
