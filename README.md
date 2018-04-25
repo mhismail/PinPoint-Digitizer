@@ -33,6 +33,13 @@ https://github.com/mhismail/PinPoint/releases/download/pinpointv0.1.0/PinPoint_0
 Download installer, navigate to downloads in terminal and run:
 `sudo dpkg -i PinPoint_0.1.0_amd64.2.deb`
 
+## Build
+To build from source, clone repository and run:
+`npm install`
+
+and to start:
+`npm start`
+
 ## Demo 
 
 ### Load in multiple images
