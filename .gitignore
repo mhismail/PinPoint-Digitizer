@@ -70,6 +70,9 @@ Thumbs
 
 node_modules/*
 
+# Images
+images/*
+
 
 # Font awesome library
 

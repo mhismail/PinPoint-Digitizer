@@ -18,7 +18,7 @@
     "postinstall": "install-app-deps",
     "start": "electron main.js",
     "package": "build --dir",
-    "dist": "build -wl --x64 --ia32"
+    "dist": "build -l --x64 --ia32"
   },
   "build": {
     "appId": "PinPoint",
