@@ -46,7 +46,7 @@
         "AppImage",
         "deb"
       ],
-        "icon": "icons/"
+      "icon": "icons/"
     },
     "win": {
       "target": "nsis",
@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "asar": "^0.13.0",
-    "electron": "^1.7.10",
+    "electron": "^1.8.2-beta5",
     "electron-builder": "^19.52.1",
     "electron-packager": "^9.1.0",
     "electron-prebuilt": "^1.4.13",
