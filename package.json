@@ -54,13 +54,13 @@
     }
   },
   "devDependencies": {
-    "electron": "^1.8.2-beta5",
-    "electron-builder": "^19.52.1"
+    "electron": "^1.8.8",
+    "electron-builder": "^19.56.2"
   },
   "dependencies": {
-    "datatables.net": "^1.10.16",
-    "datatables.net-dt": "^1.10.16",
-    "jquery": "^3.2.1",
+    "datatables.net": "^1.10.19",
+    "datatables.net-dt": "^1.10.19",
+    "jquery": "^3.3.1",
     "jquery-ui": "^1.12.1"
   }
 }
