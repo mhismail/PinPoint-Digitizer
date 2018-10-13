@@ -1,12 +1,12 @@
 var preferences= {
-    magnifier : "1",
+    hoveringCoor: 1,
     crosshairColor : "#000000",
     pointShape : "crosshair",
     selectedPointColor : "#000000",
 }
 
 $("#saveprefs").mousedown(function (e) {
-    preferences.magnifier = $('input[name=magnifier]').val()
+    preferences.hoveringCoor =  $('input[name=hoveringCoor]')[0].checked
     preferences.crosshairColor = $('input[name=crosshairColor]').val()
     preferences.pointShape = $('input[name=pointShape]:checked').val()
     preferences.selectedPointColor = $('input[name=selectedPointColor]').val()

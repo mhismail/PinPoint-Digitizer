@@ -148,6 +148,16 @@ body{
 
 }
 
+.floating-coordinates{
+    padding: 5px;
+    position: absolute;
+    border-radius: 20px;
+    color: white;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.69);
+    display: inline-block;
+}
+
 
 .controls{
   width: 25%;

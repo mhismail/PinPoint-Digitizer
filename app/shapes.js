@@ -1,5 +1,8 @@
 'use strict';
 
+var regression = require('regression');
+
+
 var fs = require('fs'); // require only if you don't already have it
 
 
@@ -128,6 +131,9 @@ function CanvasState(canvas, img) {
     this.scaleValid = false;
     this.tableValid = true;
     this.shifted=false;
+    
+    this.xlocked = true;
+    this.ylocked = true;
 
     var table = $('#' + this.id).parent().parent().parent().find('.example');
 
@@ -135,10 +141,10 @@ function CanvasState(canvas, img) {
         data: this.dataPoints,
         scrollY: 150,
         columns: [
-            { title: "X" },
-            { title: "Y" },
+            { title: "X <span class = 'x-unlock'> <i class='fa fa-lock'></i> </span>" },
+            { title: "Y <span class = 'y-unlock'> <i class='fa fa-lock'></i> </span>" },
             { title: "Line" },
-            { title: "Point #" }
+            { title: "Point #", className: "points" }
         ],
         paging: false,
         searching: false,
@@ -592,6 +598,45 @@ function CanvasState(canvas, img) {
     myState.draw(img)
     });
     
+    $(".x-unlock").click(function(e) {
+        myState.xlocked = !myState.xlocked;
+        $(this).find('.fa').removeClass('fa-lock');
+
+        $(this).find('.fa').removeClass('fa-unlock');
+        
+        if(myState.xlocked){
+            $(this).find('.fa').addClass('fa-lock');
+        }else{
+            $(this).find('.fa').addClass('fa-unlock');
+
+        }
+
+        e.stopPropagation(); //prevent triggering upstream events
+        myState.tableValid = false;
+        myState.draw(img)
+        
+    });
+    
+    $(".y-unlock").click(function(e) {
+        
+        myState.ylocked = !myState.ylocked;
+        
+        $(this).find('.fa').removeClass('fa-lock');
+
+        $(this).find('.fa').removeClass('fa-unlock');
+        
+        if(myState.ylocked){
+            $(this).find('.fa').addClass('fa-lock');
+        }else{
+            $(this).find('.fa').addClass('fa-unlock');
+
+        }
+        
+        e.stopPropagation(); //prevent triggering upstream events
+        
+        myState.tableValid = false;
+        myState.draw(img)
+    });
     
     $('#' + myState.id).parent().parent().parent().find('.screen-cap-button').mousedown( function () {
         var windowPos = remote.getCurrentWindow().getPosition();
@@ -797,17 +842,16 @@ CanvasState.prototype.draw = function (img) {
         for (var i = 0; i < l; i++) {
             dataPoints[i][3] = l - (i)
         }
+        console.log(dataPoints)
         var lines = dataPoints.map(function(value,index) { return value[2]; });
         var uniquelines = [... new Set(lines)]
         
         var colorsindices = []
         for (var i=0; i < lines.length;i++){
-            
             colorsindices.push(uniquelines.length-uniquelines.indexOf(lines[i]))
         }
         
-        
-        
+    
         this.clear(ctx);
         this.changeSize();
 
@@ -824,8 +868,7 @@ CanvasState.prototype.draw = function (img) {
     if (this.nearestPoint != this.nearestPointLast) {
         var selectedCtx = this.canvasSelectedCtx;
         this.clear(selectedCtx);
-        var cells = $('#' + this.id).parent().parent().parent().find('td');
-        
+        var cells = $('#' + this.id).parent().parent().parent().find('.points');
         cells.parent().css({"border-radius": "", "box-shadow": "" })
 
         if (this.nearestPoint != null) {
@@ -890,20 +933,91 @@ CanvasState.prototype.draw = function (img) {
 
         var table = $('#' + this.id).parent().parent().parent().find('.example');
         table.DataTable().clear().rows.add(dataPoints).draw();
+        console.log(dataPoints)
+        
+        if(this.xlocked) {
+             $( "tr td:nth-child(1)" ).attr( "contenteditable", "false" );
+        } else {
+             $( "tr td:nth-child(1)" ).attr( "contenteditable", "true" );
+        }   
+        
+        if(this.ylocked) {
+             $( "tr td:nth-child(2)" ).attr( "contenteditable", "false" );
+        } else {
+             $( "tr td:nth-child(2)" ).attr( "contenteditable", "true" );
+        }   
+
         $( "tr td:nth-child(3)" ).attr( "contenteditable", "true" );
         $( "tr td:nth-child(3)" ).attr( "tabindex", "0" );
+        
         var a = this;
+        
         //add listerners to cells
-        $("td").keyup(function(){
-        var i = l - $(this).next().html();
+        $("tr td:nth-child(1)").keyup(function(){
+            var i = l - $(this).next().next().next().html(); // get index number of point
 
-        a.dataPoints[i][2] = $(this).html();
-        a.valid = false;
-        a.miniCanvasValid = false;
-        a.floatingCanvasValid = false;
-        a.draw(img);
+            a.dataPoints[i][0] = $(this).html(); // update point in table
+            a.valid = false;
+            a.miniCanvasValid = false;
+            a.floatingCanvasValid = false;
+            a.draw(img);
         })
         
+        $("tr td:nth-child(2)").keyup(function(){
+            var i = l - $(this).next().next().html(); // get index number of point
+
+            a.dataPoints[i][1] = $(this).html(); // update point in table
+            a.valid = false;
+            a.miniCanvasValid = false;
+            a.floatingCanvasValid = false;
+            a.draw(img);
+        })
+        
+        $("tr td:nth-child(3)").keyup(function(){
+            var i = l - $(this).next().html();
+
+            a.dataPoints[i][2] = $(this).html();
+            a.valid = false;
+            a.miniCanvasValid = false;
+            a.floatingCanvasValid = false;
+            a.draw(img);
+        })
+        
+        // Numerical Summary
+        var lines = dataPoints.map(function(value,index) { return value[2]; });
+        var uniquelines = [... new Set(lines)]
+        
+        var numSum = [];
+        for ( var i = 0; i < uniquelines.length; i++){
+            var lineI = uniquelines[i];
+            var setI = [];
+            var sumX = 0;
+            var sumY = 0;
+            var n = 0;
+
+            for (var j = 0; j < l; j++){
+                if(dataPoints[j][2] == lineI){
+                    setI.push([parseFloat(dataPoints[j][0]), parseFloat(dataPoints[j][1])] ); 
+                    n = n + 1
+                    sumX = sumX + parseFloat(dataPoints[j][0]);                    
+                    sumY = sumY + parseFloat(dataPoints[j][1]);
+                    var avgX = sumX/n
+                    var avgY = sumY/n
+
+                }
+            }
+            
+            var resultLin = regression.linear(setI);
+            var resultExpo = regression.exponential(setI);
+            numSum.push([lineI, 
+                         resultLin.equation[0], 
+                         resultLin.equation[1],
+                         resultExpo.equation[1],
+                         resultExpo.equation[0],
+                         avgX, 
+                         avgY]);
+            console.log(numSum)
+        }
         
         this.tableValid = true;
     }
@@ -942,6 +1056,44 @@ CanvasState.prototype.draw = function (img) {
             top: this.currenty - 51,
             left: this.currentx - 51// + Math.floor((Math.max(0,window.screen.width*0.75-this.width))/2) //adjust if less tahn 1000px
         });
+        
+        $('#' + this.id).parent().parent().parent().find('.floating-coordinates').css({
+            top: this.currenty - 51- 45,
+            left: this.currentx - $('#' + this.id).parent().parent().parent().find('.floating-coordinates').width()/2 - 5
+        });
+        
+        if(preferences.hoveringCoor){
+             $('#' + this.id).parent().parent().parent().find('.floating-coordinates').css("display", "inline-block")
+        } else {
+                $('#' + this.id).parent().parent().parent().find('.floating-coordinates').css("display", "none")
+
+        }
+        
+        if(this.calibrated){
+            var xy = this.transformXY(this.currentx/this.width, -1 * this.currenty/this.height + 1)
+            $('#' + this.id).parent().parent().parent().find('.floating-coordinates').html(xy[0] +" | " + xy[1]);
+        } else{
+            if(this.coordinates.length == 0){
+                $('#' + this.id).parent().parent().parent().find('.floating-coordinates').html("Click X-Min");
+            }
+            
+            if(this.coordinates.length == 1){
+                $('#' + this.id).parent().parent().parent().find('.floating-coordinates').html("Click X-Max");
+            }
+            
+            if(this.coordinates.length == 2){
+                $('#' + this.id).parent().parent().parent().find('.floating-coordinates').html("Click Y-Min");
+            }
+            
+            if(this.coordinates.length == 3){
+                $('#' + this.id).parent().parent().parent().find('.floating-coordinates').html("Click Y-Max");
+            }
+            
+            if(this.coordinates.length == 4){
+                $('#' + this.id).parent().parent().parent().find('.floating-coordinates').html("Enter Calibration Points and Save");
+            }
+        }
+      
 
 
         var imageCanvas = $('#' + this.id).prev().prev()[0]
@@ -980,6 +1132,8 @@ CanvasState.prototype.draw = function (img) {
         miniCtx1.getContext('2d').moveTo(150 * 1 / scale, 0 * 1 / scale);
         miniCtx1.getContext('2d').lineTo(150 * 1 / scale, 300 * 1 / scale);
         miniCtx1.getContext('2d').stroke();
+        
+        // place coordinates on top of magnifying glass
         
 
 
