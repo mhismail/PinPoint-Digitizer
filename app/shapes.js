@@ -255,7 +255,10 @@ function CanvasState(canvas, img) {
                         myState.valid = false;
                         myState.miniCanvasValid = false;
                         myState.floatingCanvasValid = false;
-//                        myState.tableValid = false;
+                        myState.currenty = myState.currenty - 1;
+                        
+                        myState.currenty = myState.height * (1- myState.points[i][1]); // set current y to point center
+                        myState.currentx = myState.width * myState.points[i][0]; // set current x to point center//                        myState.tableValid = false;
                     }
 
                     if (myState.nearestCoordinateIndex != null & !myState.calibrated) {
@@ -265,6 +268,9 @@ function CanvasState(canvas, img) {
                         myState.calibrated = false;
                         myState.miniCanvasValid = false;
                         myState.floatingCanvasValid = false;
+                        myState.currenty = myState.height * (1- myState.coordinates[i][1]); // set current y to point center
+                        myState.currentx = myState.width * myState.coordinates[i][0]; // set current x to point center
+
                     }
 
                     break;
@@ -278,8 +284,8 @@ function CanvasState(canvas, img) {
                         myState.valid = false;
                         myState.miniCanvasValid = false;
                         myState.floatingCanvasValid = false;
-//                        myState.tableValid = false;
-
+                        myState.currenty = myState.height * (1- myState.points[i][1]); // set current y to point center
+                        myState.currentx = myState.width * myState.points[i][0]; // set current x to point center
                     }
 
                     if (myState.nearestCoordinateIndex != null & !myState.calibrated) {
@@ -289,6 +295,9 @@ function CanvasState(canvas, img) {
                         myState.calibrated = false;
                         myState.miniCanvasValid = false;
                         myState.floatingCanvasValid = false;
+                        
+                        myState.currenty = myState.height * (1- myState.coordinates[i][1]); // set current y to point center
+                        myState.currentx = myState.width * myState.coordinates[i][0]; // set current x to point center
                     }
 
                     break;
@@ -302,8 +311,8 @@ function CanvasState(canvas, img) {
                         myState.valid = false;
                         myState.miniCanvasValid = false;
                         myState.floatingCanvasValid = false;
-//                        myState.tableValid = false;
-
+                        myState.currenty = myState.height * (1- myState.points[i][1]); // set current y to point center
+                        myState.currentx = myState.width * myState.points[i][0]; // set current x to point center
                     }
 
                     if (myState.nearestCoordinateIndex != null & !myState.calibrated) {
@@ -313,6 +322,9 @@ function CanvasState(canvas, img) {
                         myState.calibrated = false;
                         myState.miniCanvasValid = false;
                         myState.floatingCanvasValid = false;
+                        
+                        myState.currenty = myState.height * (1- myState.coordinates[i][1]); // set current y to point center
+                        myState.currentx = myState.width * myState.coordinates[i][0]; // set current x to point center
                     }
 
                     break;
@@ -326,8 +338,8 @@ function CanvasState(canvas, img) {
                         myState.valid = false;
                         myState.miniCanvasValid = false;
                         myState.floatingCanvasValid = false;
-//                        myState.tableValid = false;
-
+                        myState.currenty = myState.height * (1- myState.points[i][1]); // set current y to point center
+                        myState.currentx = myState.width * myState.points[i][0]; // set current x to point center
                     }
 
                     if (myState.nearestCoordinateIndex != null & !myState.calibrated) {
@@ -337,6 +349,9 @@ function CanvasState(canvas, img) {
                         myState.calibrated = false;
                         myState.miniCanvasValid = false;
                         myState.floatingCanvasValid = false;
+                        
+                        myState.currenty = myState.height * (1- myState.coordinates[i][1]); // set current y to point center
+                        myState.currentx = myState.width * myState.coordinates[i][0]; // set current x to point center
                     }
 
                     break;
@@ -960,6 +975,7 @@ CanvasState.prototype.draw = function (img) {
             a.valid = false;
             a.miniCanvasValid = false;
             a.floatingCanvasValid = false;
+
             a.draw(img);
         })
         
@@ -970,6 +986,7 @@ CanvasState.prototype.draw = function (img) {
             a.valid = false;
             a.miniCanvasValid = false;
             a.floatingCanvasValid = false;
+
             a.draw(img);
         })
         
@@ -980,7 +997,15 @@ CanvasState.prototype.draw = function (img) {
             a.valid = false;
             a.miniCanvasValid = false;
             a.floatingCanvasValid = false;
+
             a.draw(img);
+        })
+        
+        $("td").focusout(function(){
+            a.tableValid = false;
+            a.draw(img);
+
+            
         })
         
         // Numerical Summary
@@ -1007,17 +1032,45 @@ CanvasState.prototype.draw = function (img) {
                 }
             }
             
-            var resultLin = regression.linear(setI);
-            var resultExpo = regression.exponential(setI);
+            var resultLin = regression.linear(setI, {precision: 4 });
+            var resultExpo = regression.exponential(setI, {precision: 4 });
             numSum.push([lineI, 
                          resultLin.equation[0], 
                          resultLin.equation[1],
                          resultExpo.equation[1],
+                         (-Math.log(2)/resultExpo.equation[1]).toFixed(4),
                          resultExpo.equation[0],
-                         avgX, 
-                         avgY]);
+                         avgX.toFixed(4), 
+                         avgY.toFixed(4)]);
             console.log(numSum)
         }
+        
+        // Append data summary to control div
+        
+        var controls = $('#' + this.id).parent().parent().parent().find('.controls');
+         $('#' + this.id).parent().parent().parent().find('.numSum').remove();
+  
+        
+        for ( var i = 0; i < uniquelines.length; i++){
+            controls.append('<div class = "numSum"> <div class = "results">' + 
+                            '<div> <h3 class = "line-header" style = "background-color:' + colors[uniquelines.length - i] + '">' + numSum[i][0] + '</h3> </div>' + 
+                            '<div><h4 class = "model-header"> Linear Model </h4></div>' +
+                            '<div class = "model-results"> Slope: ' + numSum[i][1] + '</div>' +
+                            '<div class = "model-results"> Intercept: ' + numSum[i][2] + '</div>' +
+                            '<hr>' +
+                            '<div><h4 class = "model-header"> Exponential Model </h4></div>' +
+                            '<div class = "model-results"> Slope: ' + numSum[i][3] + '</div>' +
+                            '<div class = "model-results"> Half-Life: ' + numSum[i][4] + '</div>' +
+                            '<div class = "model-results"> Intercept: ' + numSum[i][5] + '</div>' +
+                            '<hr>' +
+                            '<div><h4 class = "model-header">Summary </h4></div>' +
+                            '<div class = "model-results"> Average X: ' + numSum[i][6] + '</div>' +
+                            '<div class = "model-results"> Average Y: ' + numSum[i][7] + '</div>' +
+                            '</div> </div>');
+        }
+            
+        
+        
         
         this.tableValid = true;
     }
@@ -1057,8 +1110,14 @@ CanvasState.prototype.draw = function (img) {
             left: this.currentx - 51// + Math.floor((Math.max(0,window.screen.width*0.75-this.width))/2) //adjust if less tahn 1000px
         });
         
+        if (this.currenty - 51 - 45 < 10){
+            var yPosition = this.currenty + 51
+        } else {
+            var yPosition = this.currenty - 51 - 45
+        }
+        
         $('#' + this.id).parent().parent().parent().find('.floating-coordinates').css({
-            top: this.currenty - 51- 45,
+            top: yPosition,
             left: this.currentx - $('#' + this.id).parent().parent().parent().find('.floating-coordinates').width()/2 - 5
         });
         

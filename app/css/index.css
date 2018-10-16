@@ -454,3 +454,41 @@ button#saveprefs {
     margin-left: 45%;
 }
 
+.numSum {
+    width: 90%;
+    background: rgb(252, 252, 252);
+    /* border: black solid 1px; */
+    border-top: none;
+    border-radius: 10px;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    box-shadow: 0px 0px 5px 1px #cbcec7;
+    overflow: hidden;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.line-header {
+    border-top-left-radius: 10px;
+    color: white;
+}
+
+
+.model-header {
+    text-align: left;
+    margin: 10px;
+}
+
+.model-results {
+    text-align: left;
+    margin-left: 20px;
+}
+
+.results {
+    margin-bottom: 10px;
+}
+
+hr{
+    margin-top: 10px;
+}
