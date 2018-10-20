@@ -75,7 +75,7 @@ function addI() {
 }
 
 function addDragImage(path) {
-    var files = path
+    var files = encodeURI(path)
     var img = new Image(); // Create new img element
     img.addEventListener('load', function () {
         var thisi = i;
