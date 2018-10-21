@@ -13,6 +13,18 @@ var colors=["#e6194b","#3cb44b", "#ffe119","#0082c8","#f58231","#911eb4","#46f0f
 
 $('body').css('min-width', window.screen.width + 'px');
 
+function calcAUC (data) {
+    data.sort(function(a, b) {
+        return a[0]-b[0]
+    });
+    var aucSum = 0;
+    for (let n = 0; n < data.length - 1; n++){
+        var diffx = data[n + 1][0] - data[n][0]
+        var avgy = (data[n + 1][1] + data[n][1])/2
+        aucSum += diffx * avgy
+    }
+    return(aucSum)
+}
 
 
 function determineScreenShot(){
@@ -1034,6 +1046,7 @@ CanvasState.prototype.draw = function (img) {
             
             var resultLin = regression.linear(setI, {precision: 4 });
             var resultExpo = regression.exponential(setI, {precision: 4 });
+            var resultAUC = calcAUC(setI);
             numSum.push([lineI, 
                          resultLin.equation[0], 
                          resultLin.equation[1],
@@ -1041,7 +1054,8 @@ CanvasState.prototype.draw = function (img) {
                          (-Math.log(2)/resultExpo.equation[1]).toFixed(4),
                          resultExpo.equation[0],
                          avgX.toFixed(4), 
-                         avgY.toFixed(4)]);
+                         avgY.toFixed(4),
+                         resultAUC]);
             console.log(numSum)
         }
         
@@ -1066,6 +1080,7 @@ CanvasState.prototype.draw = function (img) {
                             '<div><h4 class = "model-header">Summary </h4></div>' +
                             '<div class = "model-results"> Average X: ' + numSum[i][6] + '</div>' +
                             '<div class = "model-results"> Average Y: ' + numSum[i][7] + '</div>' +
+                            '<div class = "model-results"> AUC: ' + numSum[i][8] + '</div>' +
                             '</div> </div>');
         }
             
