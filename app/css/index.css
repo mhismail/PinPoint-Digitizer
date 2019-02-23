@@ -132,7 +132,7 @@ body{
 .canvas-holder{
     width: auto;
     height: calc(100vh - 112px);
-    background-color: rgba(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0);
     display: block;
 }
 

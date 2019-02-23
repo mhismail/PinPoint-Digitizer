@@ -690,7 +690,7 @@ console.log(windowPos)
             var captureHeight = $(".active-canvas ").parent().parent().height()
 
             console.log(screenshotPath)
-            fs.writeFile(screenshotPath,source.thumbnail.crop({x:windowPos[0],y:windowPos[1]+112,width: captureWidth ,height:captureHeight}).toPng(100))
+            fs.writeFile(screenshotPath, source.thumbnail.crop({x:windowPos[0],y:windowPos[1]+112,width: captureWidth ,height:captureHeight}).toPNG(100), () => {});
              //shell.openExternal("file://"+screenshotPath)
             setTimeout(function(){
            addDragImage("file://"+screenshotPath)

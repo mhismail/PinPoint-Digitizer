@@ -10,9 +10,10 @@ const {webContents} = electron;
 
 var mainWindow = null;
 app.commandLine.appendSwitch('--disable-http-cache');
+//app.disableHardwareAcceleration()
 
-
-app.on('ready', function() {
+app.on('ready', function(event) {
+        event.preventDefault();
     setTimeout(() => {
     mainWindow = new BrowserWindow({
         frame: false,
