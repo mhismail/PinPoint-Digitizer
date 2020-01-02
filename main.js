@@ -21,7 +21,10 @@ app.on('ready', function(event) {
         //resizable: false,
         width: 500,
         transparent:true,
-  	backgroundColor: '#00000000'
+  	backgroundColor: '#00000000',
+  	webPreferences: {
+    	    nodeIntegration: true
+  	}
 
     });
     mainWindow.loadURL('file://' + __dirname + '/index.html');

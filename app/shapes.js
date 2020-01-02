@@ -30,8 +30,8 @@ function calcAUC (data) {
 function determineScreenShot(){
 
     return{
-        width:window.screen.width,
-        height:window.screen.height
+        width:window.screen.width*  window.devicePixelRatio,
+        height:window.screen.height * window.devicePixelRatio
 
     }
 }
@@ -676,6 +676,8 @@ console.log(windowPos)
         $(".main-container").css("background"," rgba(171, 163, 163, 0)");
         $('.screen-cap-button').hide()
         $('.floating-canvas').hide()
+        $('.floating-coordinates').hide()
+
 
         setTimeout(function(){    // need small delay for css to udpate
             desktopCapturer.getSources(options, function(error,sources){
@@ -683,20 +685,26 @@ console.log(windowPos)
             var time;
             var d = new Date()
             time = d.getTime()
-            const screenshotPath = path.join(os.tmpdir(),"screenshot"+time+"@2x.png");
+            const screenshotPath = path.join(os.tmpdir(),"screenshot"+time+".png");
             console.log(source.thumbnail)
             
             var captureWidth = $(".active-canvas ").width()
             var captureHeight = $(".active-canvas ").parent().parent().height()
 
             console.log(screenshotPath)
-            fs.writeFile(screenshotPath, source.thumbnail.crop({x:windowPos[0],y:windowPos[1]+112,width: captureWidth ,height:captureHeight}).toPNG(100), () => {});
+           console.log(source.thumbnail.crop({x:windowPos[0],y:windowPos[1]+112,width: captureWidth ,height:captureHeight}).toPNG({scaleFactor:2.5}));
+            
+           console.log(source.thumbnail.crop({x:windowPos[0],y:windowPos[1]+112,width: captureWidth ,height:captureHeight}).addRepresentation({scaleFactor:2.0}));
+            
+        fs.writeFile(screenshotPath, source.thumbnail.crop({x:windowPos[0],y:windowPos[1]+112*window.devicePixelRatio,width: captureWidth *window.devicePixelRatio,height:captureHeight*window.devicePixelRatio}).toPNG({scaleFactor:1/window.devicePixelRatio}), () => {});
              //shell.openExternal("file://"+screenshotPath)
             setTimeout(function(){
            addDragImage("file://"+screenshotPath)
                         $(".main-container").css("background"," rgba(171, 163, 163, 0.17)");
         $('.screen-cap-button').show()
         $('.floating-canvas').show()
+                        $('.floating-coordinates').show()
+
             },100)
 
 
