@@ -17,8 +17,8 @@
   "scripts": {
     "postinstall": "install-app-deps",
     "start": "electron main.js",
-    "package": "build --dir",
-    "dist": "build -l --x64 --ia32"
+    "package": "electron-builder --dir",
+    "dist": "electron-builder -w --x64 --ia32"
   },
   "build": {
     "appId": "PinPoint",
@@ -50,7 +50,7 @@
     },
     "win": {
       "target": "nsis",
-      "icon": "build/icon.ico"
+      "icon": "images/pinpoint_logo_ico.ico"
     }
   },
   "devDependencies": {

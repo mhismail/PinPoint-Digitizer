@@ -203,6 +203,16 @@ function CanvasState(canvas, img) {
         myState.valid = false
         myState.draw(img);
     })
+
+    $("#zoom3"+this.i).click(function () {
+        myState.valid = false
+        myState.draw(img);
+    })
+
+    $("#zoom4"+this.i).click(function () {
+        myState.valid = false
+        myState.draw(img);
+    })
     //
     //Redraw after right click (devarion)
     $("#"+this.id).mousedown(function (e) {
@@ -667,8 +677,6 @@ function CanvasState(canvas, img) {
     
     $('#' + myState.id).parent().parent().parent().find('.screen-cap-button').mousedown( function () {
         var windowPos = remote.getCurrentWindow().getPosition();
-console.log(windowPos)
-
 
         const thumbSize = determineScreenShot();
         let options = {types:['screen'], thumbnailSize:thumbSize}
@@ -681,31 +689,31 @@ console.log(windowPos)
 
         setTimeout(function(){    // need small delay for css to udpate
             desktopCapturer.getSources(options, function(error,sources){
-        sources.forEach(function(source){
-            var time;
-            var d = new Date()
-            time = d.getTime()
-            const screenshotPath = path.join(os.tmpdir(),"screenshot"+time+".png");
-            console.log(source.thumbnail)
-            
-            var captureWidth = $(".active-canvas ").width()
-            var captureHeight = $(".active-canvas ").parent().parent().height()
+            sources.forEach(function(source){
+                var time;
+                var d = new Date()
+                time = d.getTime()
+                const screenshotPath = path.join(os.tmpdir(),"screenshot"+time+".png");
+                console.log(screenshotPath)
+                console.log(windowPos[0])
+                console.log(windowPos)
 
-            console.log(screenshotPath)
-           console.log(source.thumbnail.crop({x:windowPos[0],y:windowPos[1]+112,width: captureWidth ,height:captureHeight}).toPNG({scaleFactor:2.5}));
-            
-           console.log(source.thumbnail.crop({x:windowPos[0],y:windowPos[1]+112,width: captureWidth ,height:captureHeight}).addRepresentation({scaleFactor:2.0}));
-            
-        fs.writeFile(screenshotPath, source.thumbnail.crop({x:windowPos[0],y:windowPos[1]+112*window.devicePixelRatio,width: captureWidth *window.devicePixelRatio,height:captureHeight*window.devicePixelRatio}).toPNG({scaleFactor:1/window.devicePixelRatio}), () => {});
-             //shell.openExternal("file://"+screenshotPath)
-            setTimeout(function(){
-           addDragImage("file://"+screenshotPath)
-                        $(".main-container").css("background"," rgba(171, 163, 163, 0.17)");
-        $('.screen-cap-button').show()
-        $('.floating-canvas').show()
-                        $('.floating-coordinates').show()
+                var xpos = windowPos[0]*window.devicePixelRatio
+                var ypos = (windowPos[1]+112)*window.devicePixelRatio
+                var captureWidth = $(".active-canvas ").width()*window.devicePixelRatio
+                var captureHeight = ($(".active-canvas ").parent().parent().height()- windowPos[1])*window.devicePixelRatio 
 
-            },100)
+                console.log(captureHeight*window.devicePixelRatio)
+                console.log(captureWidth *window.devicePixelRatio)
+                fs.writeFile(screenshotPath, source.thumbnail.crop({x: xpos, 
+                                                                    y: ypos,
+                                                                    width: captureWidth ,
+                                                                    height:captureHeight}).toPNG({scaleFactor:1/window.devicePixelRatio}), 
+                                                                    () => {addDragImage("file://"+screenshotPath)
+                                                                    $(".main-container").css("background"," rgba(171, 163, 163, 0.17)");
+                                                    $('.screen-cap-button').show()
+                                                    $('.floating-canvas').show()
+                                                                    $('.floating-coordinates').show()});
 
 
         })

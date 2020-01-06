@@ -17,11 +17,12 @@
 <body >
     <div class=title-bar-container>
         <div id="title-bar">
+            <div id = "logo"><img src="images/Logomakr_1tx5uj.png" alt=""></div>
             <div id="title">PinPoint Digitizer</div>
             <div id="title-bar-btns">
-            <button id="min-btn">-</button>
-            <button id="max-btn">+</button>
-            <button id="close-btn">x</button>
+            <button id="min-btn">&minus;</button>
+            <button id="max-btn">&plus;</button>
+            <button id="close-btn">&times;</button>
             </div>
         </div>
     </div>
@@ -67,7 +68,7 @@
 
           <input type="radio" id="pointShapeChoice3"
            name="pointShape" value="X">
-          <label for="pointShapeChoice3">X</label>
+          <label for="pointShapeChoice3">Hidden</label>
         </span>
       </div>
       <div>
@@ -81,21 +82,39 @@
         </span>
       </div>
         <button id="saveprefs">Save</button>
+        <hr>
+        <div>PinPoint Version 0.2.0</div>
+        <div>Mohamed H. Ismail</div>
+
     </div>
     <div class="loaded-images-holder">
-        <div class= settings-container>
-            <a href= "https://github.com/mhismail/PinPoint"  target="_blank">
+      <div class= settings-container>
+        <span class = settings-large id = load-image>
+            <i class="fa fa-image"></i>
+            <div class = text>Open</div>
+        </span>
+        <span class = settings-large id = screenshot>
+            <i class="fa fa-desktop"></i>
+            <div class = text>Screenshot</div>
+        </span>
+        <span class = settings-large id = home>
+          <i class="fa fa-home"></i>
+          <div class = text>Home</div>
+      </span>
+        <span class = "settings-text prefs" id = settings><p> <i class="fa fa-gear"></i>  Settings</p></span>
+<!--             <a href= "https://github.com/mhismail/PinPoint"  target="_blank">
                 <div class="settings"> 
-                    <i class="fa fa-info"></i>
+                    <i class="fa fa-info"><p>Load Image</p>Load </i>
                 </div>
             </a>
             <div class="settings empty"> <i class="fa fa-desktop"></i></div>
             <div class="settings prefs"> <i class="fa fa-gear"></i></div>
-            <div class="settings newImage"> <i class="fa fa-image"></i></div>
+            <div class="settings newImage"> <i class="fa fa-image"></i></div> -->
         </div>
     </div>
     <div class="canvas-holder">
-       
+      <img src = "images/Desktop.svg" class = "help-page">
+
     </div>
      <div id="mousePosition"></div>
         </div>

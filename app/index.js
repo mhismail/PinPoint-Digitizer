@@ -26,6 +26,12 @@ $(document).on('click', 'a[href^="http"]', function(event) {
     shell.openExternal(this.href);
 });
 
+$("#home").mousedown(function(e){
+    $('.container').hide();
+    $('canvas').removeClass("active-canvas");
+    $('.help-page').show();
+
+})
 
 $(".prefs").mousedown(function (e) {
     $(".preferences").show()
@@ -57,7 +63,43 @@ function iconSpan(i, files, iconHolderWidth) {
 
 function canvasContainer(i, width, height) {
     return (
-        '<div class="container" id="canvas-' + i + '"><div class="pre-canvas-container" ><div class="canvas-container" ><canvas class = "main-canvas" id="canvas-container-img-' + i + '" style = "display:inline;"  width="' + width + '" height="' + height + '"></canvas><canvas class = "canvas-selected main-canvas" id="canvas-container-selected-' + i + '" style = "display:inline;"  width="' + width + '" height="' + height + '"></canvas><canvas class = "main-canvas" id="canvas-container-' + i + '" style = "display:inline;"  width="' + width + '" height="' + height + '"></canvas><canvas class = "floating-canvas" height = "100" width = "100"></canvas><div class = "floating-coordinates" height = "30" width = "100"></div></div></div><div class = "controls"><div class = "mini-canvas-container"><canvas class = "mini-canvas" width = "300" height = "300"></canvas></div> <span class="zoom" id ="zoom' + i + '"> <i class="fa fa-minus"></i></span><span class="zoom2 zoom" id ="zoom2' + i + '"> <i class="fa fa-plus"></i></span><div class = "calibrate-container"><button class = "calibrate" disabled>Calibrate</button></div><div class = "name-input" ><div><label>Name</label></div><input type="text" name="name" value="Line 1"></div><div class = "coordinates"><div class= x-axis><div class="min-max"><div><label>X Minimum</label></div><input type="number" name="xlow" value="0"></div><div class="min-max"><div><label>X Maximum</label></div><input type="number" name="xhigh" value="1"></div><div class= log10><div><p>Log10</p></div><div class = "checkbox-container"><input type="checkbox" value="0" id="xlog10' + i + '" name="xlog10"/><label for="xlog10' + i + '"></label></div></div></div><div class="min-max"><div><label>Y Minimum</label></div><input type="number" name="ylow" value="0"></div><div class="min-max"><div><label>Y Maximum</label></div><input type="number" name="yhigh" value="1"></div><div class= log10><div><p>Log10</p></div><div class = "checkbox-container"><input type="checkbox" value="0" id="ylog10' + i + '" name="ylog10"/><label for="ylog10' + i + '"></label></div></div><div><button class = "save-coordinates" disabled>Save</button></div></div><table class="example" class="display" width="100%"></table><div class="export"><button class = "csv">CSV</button><button class = "R">R</button></div></div>'
+        '<div class="container" id="canvas-' + 
+        i + 
+        '"><div class="pre-canvas-container" ><div class="canvas-container" ><canvas class = "main-canvas" id="canvas-container-img-' + 
+        i + 
+        '" style = "display:inline;"  width="' + 
+        width + 
+        '" height="' + 
+        height + 
+        '"></canvas><canvas class = "canvas-selected main-canvas" id="canvas-container-selected-' + 
+        i + 
+        '" style = "display:inline;"  width="' + 
+        width + 
+        '" height="' + 
+        height + 
+        '"></canvas><canvas class = "main-canvas" id="canvas-container-' + 
+        i + 
+        '" style = "display:inline;"  width="' + 
+        width + 
+        '" height="' + 
+        height + 
+        '"></canvas><canvas class = "floating-canvas" height = "100" width = "100"></canvas><div class = "floating-coordinates" height = "30" width = "100"></div></div></div><div class = "controls"><div class = "zoom-controls"><button class="zoom" id ="zoom' + 
+        i + 
+        '"> <i class="fa fa-search-minus"></i></button><button class="zoom2 zoom" id ="zoom2' + 
+        i + 
+        '"> <i class="fa fa-search-plus"></i></button><button class = "zoom" id ="zoom3' + 
+        i + 
+        '">Reset Zoom</button><button class = "zoom" id ="zoom4' + 
+        i + 
+        '">Fit</button></div><div class = "mini-canvas-container"><canvas class = "mini-canvas" width = "300" height = "300"></canvas></div> <div class = "calibrate-container"><button class = "calibrate" disabled>Calibrate</button></div><div class = "name-input" ><div><label>Name</label></div><input type="text" name="name" value="Line 1"></div><div class = "coordinates"><div class= x-axis><div class="min-max"><div><label>X Minimum</label></div><input type="number" name="xlow" value="0"></div><div class="min-max"><div><label>X Maximum</label></div><input type="number" name="xhigh" value="1"></div><div class= log10><div><p>Log10</p></div><div class = "checkbox-container"><input type="checkbox" value="0" id="xlog10' + 
+        i + 
+        '" name="xlog10"/><label for="xlog10' + 
+        i + 
+        '"></label></div></div></div><div class="min-max"><div><label>Y Minimum</label></div><input type="number" name="ylow" value="0"></div><div class="min-max"><div><label>Y Maximum</label></div><input type="number" name="yhigh" value="1"></div><div class= log10><div><p>Log10</p></div><div class = "checkbox-container"><input type="checkbox" value="0" id="ylog10' + 
+        i + 
+        '" name="ylog10"/><label for="ylog10' + 
+        i + 
+        '"></label></div></div><div><button class = "save-coordinates" disabled>Save</button></div></div><table class="example" class="display" width="100%"></table><div class="export"><button class = "csv">CSV</button><button class = "R">R</button></div></div>'
     )
 }
 
@@ -80,6 +122,7 @@ function addDragImage(path) {
     img.addEventListener('load', function () {
         var thisi = i;
         $(".container").hide(); //hide all canvas
+        $('.help-page').hide();
         $('.image-icon').removeClass("image-icon-selected")
 
         var width = Math.floor(window.screen.width*0.75);
@@ -110,12 +153,13 @@ function addDragImage(path) {
 
         //insert button to capture screen shot
         if (img.width == 1){
-            canvascontaineri.parent().before('<div class="screen-cap-button" > <i class="fa fa-camera"></i></div>')
+            canvascontaineri.parent().before('<div class="screen-cap-button" > <i class="fa fa-camera"><p>Take Screenshot</p></i></div>')
         }
         init('canvas-container-' + thisi, img);
         iconEl.click(function () {
             $('.container').hide();
             $('canvas').removeClass("active-canvas");
+            $('.help-page').hide();
             canvasi.show();
             canvascontaineri.addClass("active-canvas");
             $('.image-icon').removeClass("image-icon-selected")
@@ -174,6 +218,38 @@ function addDragImage(path) {
 
         })
 
+        $("#zoom3"+thisi)[0].addEventListener('mousedown', function () {
+            ctx.clearRect(0, 0, a, a * img.height / img.width);
+            a = img.width;
+            $("#canvas-container-img-" + thisi)[0].width = a;
+            $("#canvas-container-img-" + thisi)[0].height = a * img.height / img.width;
+            $("#canvas-container-" + thisi)[0].width = a;
+            $("#canvas-container-" + thisi)[0].height = a * img.height / img.width;
+            $("#canvas-container-selected-" + thisi)[0].width = a;
+            $("#canvas-container-selected-" + thisi)[0].height = a * img.height / img.width;
+            ctx.drawImage(img, 0, 0, $("#canvas-container-" + thisi)[0].width, $("#canvas-container-" + thisi)[0].height);
+
+                                        //center canvas if its smaller than container
+            $("#canvas-" + thisi).find(".canvas-container").css("margin-left",Math.floor(Math.max(0,Math.floor(window.screen.width*0.75)-a)/2))
+
+        })
+
+        $("#zoom4"+thisi)[0].addEventListener('mousedown', function () {
+            ctx.clearRect(0, 0, a, a * img.height / img.width);
+            a = $(".active-canvas ").parent().parent().width();
+            $("#canvas-container-img-" + thisi)[0].width = a;
+            $("#canvas-container-img-" + thisi)[0].height = a * img.height / img.width;
+            $("#canvas-container-" + thisi)[0].width = a;
+            $("#canvas-container-" + thisi)[0].height = a * img.height / img.width;
+            $("#canvas-container-selected-" + thisi)[0].width = a;
+            $("#canvas-container-selected-" + thisi)[0].height = a * img.height / img.width;
+            ctx.drawImage(img, 0, 0, $("#canvas-container-" + thisi)[0].width, $("#canvas-container-" + thisi)[0].height);
+
+                                        //center canvas if its smaller than container
+            $("#canvas-" + thisi).find(".canvas-container").css("margin-left",Math.floor(Math.max(0,Math.floor(window.screen.width*0.75)-a)/2))
+
+        })
+
         var closei = $("#close" + thisi);
         closei.click(function () {
             $(this).parent().remove();
@@ -189,10 +265,10 @@ function addDragImage(path) {
 }
 
 var i = 0;
-var settingsEl = document.querySelector('.newImage');
+var settingsEl = document.querySelector('#load-image');
 settingsEl.addEventListener('click', addImageListener);
 
-var empty = document.querySelector('.empty');
+var empty = document.querySelector('#screenshot');
 empty.addEventListener('click', addEmptyImageListener);
 
 function addImage() {
@@ -200,7 +276,7 @@ function addImage() {
         properties: ['openFile', 'multiSelections'],
         filters: [{
             name: 'Images',
-            extensions: ['jpg', 'png', 'gif']
+            extensions: ['jpg', 'png', 'gif', 'svg']
         }]
     });
     var j = 0;
