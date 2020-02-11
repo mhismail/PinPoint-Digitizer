@@ -4,6 +4,8 @@
   <img src='images/pinpoint-logo-small.png'>
 </p>
 
+https://mhismail.github.io/PinPoint-Landing/
+
 PinPoint Digitizer is an open-source, cross-platform, desktop application to facilitate the extraction of data from images of plots. Data can be captured from plots with both linear or log scaled axes. PinPoint's user interface was designed for maximal accuracy and an intuitive workflow. 
 
 ## User Manual
@@ -23,15 +25,15 @@ https://mhismail.gitbooks.io/pinpoint-digitizer-user-manual/
 ## Installation 
 
 ### Windows
-https://github.com/mhismail/PinPoint/releases/download/pinpointv0.1.0/PinPoint.Setup.0.1.0.exe
+https://github.com/mhismail/PinPoint-Digitizer/releases/download/v0.2.0-alpha/PinPoint.Setup.0.2.0.exe
 
 Download and run installer
 
 ### Linux
-https://github.com/mhismail/PinPoint/releases/download/pinpointv0.1.0/PinPoint_0.1.0_amd64.2.deb
+https://github.com/mhismail/PinPoint-Digitizer/releases/download/v0.2.0-alpha/PinPoint_0.2.0_amd64.deb
 
 Download installer, navigate to downloads in terminal and run:
-`sudo dpkg -i PinPoint_0.1.0_amd64.2.deb`
+`sudo dpkg -i PinPoint_0.2.0_amd64.deb`
 
 ## Build
 To build from source, clone repository and run:
