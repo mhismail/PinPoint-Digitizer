@@ -18,28 +18,13 @@
     "postinstall": "install-app-deps",
     "start": "electron main.js",
     "package": "electron-builder --dir",
-    "dist": "electron-builder -w --x64 --ia32"
+    "dist": "electron-builder -m --x64 --ia32"
   },
   "build": {
     "appId": "PinPoint",
     "mac": {
       "category": "public.app.category.productivity",
-      "target": "zip",
       "icon": "images/pinpoint_logo_ico.ico"
-    },
-    "dmg": {
-      "contents": [
-        {
-          "x": 110,
-          "y": 150
-        },
-        {
-          "x": 240,
-          "y": 150,
-          "type": "link",
-          "path": "/Applications"
-        }
-      ]
     },
     "linux": {
       "target": [
