@@ -56,7 +56,7 @@
     "electron-builder": "^19.56.2"
   },
   "dependencies": {
-    "datatables.net": "^1.10.21",
+    "datatables.net": "^1.10.22",
     "datatables.net-dt": "^1.10.21",
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",
