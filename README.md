@@ -15,7 +15,7 @@ https://mhismail.gitbooks.io/pinpoint-digitizer-user-manual/
 
  - Magnifying glass effect with cross hairs for pixel perfect accuracy
  - Load in multiple plots at once or drag and drop images into interface
- - Download data as a csv file or copy to clipboard in various formats (R data.frame, python Array, comma-seperated)
+ - Download data as a csv file or copy to clipboard in various formats (R data.frame, python Array, comma-separated)
  - Keyboard shortcuts for zooming and adjusting/deleting points
  - Label groups of points as they are captured to easily organize data (i.e. multiple lines on same plot)
  - Capture data from facetted/multiple plots in same image 
