@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "electron": "^5.0.13",
-    "electron-builder": "^19.56.2"
+    "electron-builder": "^23.6.0"
   },
   "dependencies": {
     "datatables.net": "^1.10.21",
