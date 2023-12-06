@@ -23,7 +23,9 @@
   "build": {
     "appId": "PinPoint",
     "mac": {
-      "category": "public.app.category.productivity"
+      "type": "distribution",
+      "target": "dmg",
+      "icon": "images/pinpoint_icon_mac.ico"
     },
     "dmg": {
       "contents": [
@@ -52,8 +54,8 @@
     }
   },
   "devDependencies": {
-    "electron": "^5.0.13",
-    "electron-builder": "^19.56.2"
+    "electron": "^11",
+    "electron-builder": "^22.3.10"
   },
   "dependencies": {
     "datatables.net": "^1.10.21",

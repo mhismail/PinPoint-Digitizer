@@ -9,7 +9,7 @@ const dialog = remote.dialog;
 const {BrowserWindow} = electron;
 
 window.$ = window.jquery = require('jquery');
-var dt = require('datatables.net')();
+var dt = require('datatables.net')(window, $);
 require("jquery-ui")
 
 var shell = require('electron').shell;
@@ -272,13 +272,15 @@ var empty = document.querySelector('#screenshot');
 empty.addEventListener('click', addEmptyImageListener);
 
 function addImage() {
-    var filesa = dialog.showOpenDialog({
+    var filesa = dialog.showOpenDialogSync({
         properties: ['openFile', 'multiSelections'],
         filters: [{
             name: 'Images',
             extensions: ['jpg', 'png', 'gif', 'svg']
         }]
     });
+    
+    console.log(filesa)
     var j = 0;
     var newimage = true;
     if (filesa !== undefined) {

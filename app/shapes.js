@@ -677,6 +677,7 @@ function CanvasState(canvas, img) {
     
     $('#' + myState.id).parent().parent().parent().find('.screen-cap-button').mousedown( function () {
         var windowPos = remote.getCurrentWindow().getPosition();
+        console.log(windowPos)
 
         const thumbSize = determineScreenShot();
         let options = {types:['screen'], thumbnailSize:thumbSize}
@@ -685,14 +686,16 @@ function CanvasState(canvas, img) {
         $('.screen-cap-button').hide()
         $('.floating-canvas').hide()
         $('.floating-coordinates').hide()
+        console.log(options)
 
 
         setTimeout(function(){    // need small delay for css to udpate
-            desktopCapturer.getSources(options, function(error,sources){
+            desktopCapturer.getSources(options).then(function(sources){
             sources.forEach(function(source){
                 var time;
                 var d = new Date()
                 time = d.getTime()
+                console.log(time)
                 const screenshotPath = path.join(os.tmpdir(),"screenshot"+time+".png");
                 console.log(screenshotPath)
                 console.log(windowPos[0])
@@ -717,12 +720,12 @@ function CanvasState(canvas, img) {
 
 
         })
-        })
+        }, error =>{ console.log(error)})
 
 
 
 
-        },100)
+        },200)
     })
 
 

@@ -23,7 +23,9 @@ app.on('ready', function(event) {
         transparent:true,
   	backgroundColor: '#00000000',
   	webPreferences: {
-    	    nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
   	}
 
     });
